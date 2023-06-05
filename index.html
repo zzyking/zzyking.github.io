@@ -1,16 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style type="text/css">
-        h1{
-            text-align: center;
-            font-size: 50px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Hello Github</h1>   
-</body>
+<html>
+  <head>
+    <title>My Personal Blog</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>My Personal Blog</h1>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <section>
+        <h2>Recent Posts</h2>
+        <div class="post-list">
+          <div class="post">
+            <h3><a href="#">Post Title</a></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+            <a href="#" class="read-more">Read more &raquo;</a>
+          </div>
+          <div class="post">
+            <h3><a href="#">Another Post Title</a></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+            <a href="#" class="read-more">Read more &raquo;</a>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>About Me</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+      </section>
+      <section>
+        <h2>Contact Me</h2>
+        <form>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" required>
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+          <button type="submit" class="button">Send</button>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <p>&copy; 2023 My Personal Blog</p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
 </html>
