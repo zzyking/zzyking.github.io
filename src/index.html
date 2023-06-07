@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>King's Personal Website</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+  <link href="../public/output.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-teal-100 dark:bg-blue-900 px-2 py-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between">
+        <div class="text-gray-800 dark:text-white text-2xl font-bold">
+          <a href="#" class="hover:text-gray-600">King's Website</a>
+        </div>
+        <div class="md:hidden">
+          <button class="text-gray-800 dark:text-white hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="Open Menu">
+            <span class="iconify" data-icon="mdi:menu" data-inline="false"></span>
+          </button>
+        </div>
+        <!-- Navigation -->
+        <nav class="hidden md:flex md:items-center md:space-x-6">
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Home</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">About</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Portfolio</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Contact</a>
+        </nav>
+        <!-- Dark Mode Toggle -->
+        <button class="text-gray-800 dark:text-white focus:outline-none ml-4" aria-label="Dark Mode">
+          <span class="iconify" data-icon="mdi:theme-light-dark" data-inline="false"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="bg-white dark:bg-slate-800">
+    <div class="h-4"></div>
+    <!-- Hero Section -->
+    <section class="rounded-lg shadow-md overflow-hidden bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white px-20 py-20 mb-4 mx-4">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="md:w-1/2">
+            <h1 class="text-4xl font-bold mb-6">Welcome to my personal website</h1>
+            <p class="text-xl mb-6">I'm a web developer based in New York City. I specialize in building responsive websites and web applications using modern web technologies.</p>
+            <a href="#" class="bg-white text-gray-900 py-2 px-4 rounded-md font-medium hover:bg-gray-100 transition duration-300 ease-in-out">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="container mx-auto mt-10">
+      <h2 class="text-3xl font-bold mb-6 text-black dark:text-white">Some of my recent projects</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+          <img src="https://source.unsplash.com/user/angusyang9/likes" alt="Project Image" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-2 text-black dark:text-white">Project 1</h3>
+            <p class="text-gray-800 dark:text-gray-200 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id justo euismod, eleifend nibh vel, laoreet ipsum.</p>
+            <a href="#" class="text-purple-500 font-medium mt-4 hover:text-purple-700 transition duration-300 ease-in-out">Read More</a>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+          <img src="https://source.unsplash.com/user/marekpiwnicki/likes" alt="Project Image" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-2 text-black dark:text-white">Project 2</h3>
+            <p class="text-gray-800 dark:text-gray-200 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean id justo euismod, eleifend nibh vel, laoreet ipsum.</p>
+            <a href="#" class="text-purple-500 font-medium mt-4 hover:text-purple-700 transition duration-300 ease-in-out">Read More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="h-10"></div>
+  </main>
+  <!-- Footer -->
+  <footer class=" bg-teal-100 dark:bg-blue-900 px-6 py-4">
+    <div class="container mx-auto">
+      <div class="flex justify-between items-center">
+        <div class="text-gray-800 dark:text-white">© 2023 My Personal Website. All Rights Reserved.</div>
+        <div class="flex space-x-4">
+          <a href="https://twitter.com" target="_blank" class="text-gray-800 dark:text-white hover:text-gray-600">
+            <span class="iconify" data-icon="mdi:twitter" data-inline="false"></span>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="text-gray-800 dark:text-white hover:text-gray-600">
+            <span class="iconify" data-icon="mdi:linkedin" data-inline="false"></span>
+          </a>
+          <a href="https://github.com" target="_blank" class="text-gray-800 dark:text-white hover:text-gray-600">
+            <span class="iconify" data-icon="mdi:github" data-inline="false"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+<script>
+  const toggle = document.querySelector('button[aria-label="Dark Mode"]');
+  const body = document.querySelector('body');
+  toggle.addEventListener('click', () => {
+    body.classList.toggle('dark');
+  });
+</script>
+<script>
+  const menuButton = document.querySelector('button[aria-label="Open Menu"]');
+  const nav = document.querySelector('nav');
+  menuButton.addEventListener('click', () => {
+    nav.classList.toggle('hidden');
+  });
+</script>
+</html>
