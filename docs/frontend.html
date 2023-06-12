@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Form</title>
+    <link href="../public/output.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <form class="mx-auto max-w-md bg-[#172554] rounded-lg p-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-center text-violet-50 mb-8">Contact Us</h2>
+            <div class="mb-6">
+                <label class="block text-cyan-200 font-bold mb-2" for="name">
+                    Name
+                </label>
+                <input
+                    class="bg-gray-800 appearance-none border-2 border-teal-400 rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:border-blue-500"
+                    id="name" type="text" placeholder="John Doe">
+            </div>
+            <div class="mb-6">
+                <label class="block text-cyan-200 font-bold mb-2" for="email">
+                    Email
+                </label>
+                <input
+                    class="bg-gray-800 appearance-none border-2 border-teal-400 rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:border-blue-500"
+                    id="email" type="email" placeholder="johndoe@example.com">
+            </div>
+            <div class="mb-6">
+                <label class="block text-cyan-200 font-bold mb-2" for="phone">
+                    Phone Number
+                </label>
+                <input
+                    class="bg-gray-800 appearance-none border-2 border-teal-400 rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:border-blue-500"
+                    id="phone" type="tel" placeholder="(123) 456-7890">
+            </div>
+            <div class="mb-6">
+                <label class="block text-cyan-200 font-bold mb-2" for="description">
+                    How Can We Help? (Description)
+                </label>
+                <textarea
+                    class="bg-gray-800 appearance-none border-2 border-teal-400 rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:border-blue-500"
+                    id="description" placeholder="Please describe how we can help you."></textarea>
+            </div>
+            <div class="mb-6">
+                <label class="block text-cyan-200 font-bold mb-2" for="services">
+                    Services
+                </label>
+                <select
+                    class="bg-gray-800 appearance-none border-2 border-teal-400 rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:border-blue-500"
+                    id="services">
+                    <option>Select a service</option>
+                    <option>Service 1</option>
+                    <option>Service 2</option>
+                    <option>Service 3</option>
+                </select>
+            </div>
+            <div class="flex justify-center">
+                <button
+                    class="bg-rose-400 hover:bg-rose-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="button">
+                    Send Message
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
