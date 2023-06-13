@@ -72,8 +72,8 @@
 
 </body>
 <script>
+    
     const form = document.querySelector('form');
-
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -126,7 +126,8 @@
 
         // Submit the form data to the API
         const formData = new FormData(form);
-        fetch('https://formz.in/api/task', {
+        fetch('http://formz.in/api/task', {
+
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -149,7 +150,6 @@
             .then(data => {
                 console.log(data);
                 alert('Message sent successfully!');
-                form.reset();
             })
             .catch(error => {
                 console.error(error);
