@@ -71,8 +71,9 @@
     </div>
 
 </body>
+
 <script>
-    
+
     const form = document.querySelector('form');
     form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -130,9 +131,9 @@
 
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: JSON.stringify({
+            body: new URLSearchParams({
                 name: name.value,
                 email: email.value,
                 phone: phone.value,
@@ -147,14 +148,10 @@
                     throw new Error('Network response was not ok');
                 }
             })
-            .then(data => {
+            .finally(data => {
                 console.log(data);
                 alert('Message sent successfully!');
             })
-            .catch(error => {
-                console.error(error);
-                alert('An error occurred while sending the message.');
-            });
     });
 </script>
 
