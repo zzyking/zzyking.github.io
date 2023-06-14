@@ -145,14 +145,24 @@
                 if (response.ok) {
                     return response.json();
                 } else {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response was not ok.');
                 }
             })
-            .finally(data => {
+            /*.finally(data => {
+                console.log(data);
+                alert('Message sent successfully!');
+                window.location.reload();
+            })*/
+            .then(data => {
                 console.log(data);
                 alert('Message sent successfully!');
                 window.location.reload();
             })
+            .catch(error => {
+                console.error(error);
+                alert('An error occurred while sending the message.');
+                window.location.reload();
+            });
     });
 </script>
 
