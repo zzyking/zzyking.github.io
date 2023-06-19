@@ -12,7 +12,7 @@
 
 <body>
   <!-- Header -->
-  <header class="bg-teal-100 dark:bg-blue-900 px-2 py-4">
+  <header class="sticky top-0 w-full bg-teal-100 dark:bg-blue-900 px-2 py-4">
     <div class="container mx-auto">
       <div class="flex items-center justify-between">
         <div class="text-gray-800 dark:text-white text-2xl font-bold">
@@ -30,17 +30,17 @@
 
         <!-- Navigation Menu -->
         <nav class="md:flex md:items-center md:space-x-6 hidden" id="nav-menu">
-          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Home</a>
-          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">About</a>
-          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Portfolio</a>
-          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Contact</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Home</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">About</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Portfolio</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Contact</a>
         </nav>
         <!--Mobile Navigation Menu-->
         <div class="md:hidden mobile-nav" id="mobile-nav-menu">
-          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Home</a>
-          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">About</a>
-          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Portfolio</a>
-          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600">Contact</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Home</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">About</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Portfolio</a>
+          <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Contact</a>
         </div>
         <!-- Dark Mode Toggle -->
         <button class="text-gray-800 dark:text-white focus:outline-none ml-4" aria-label="Dark Mode">
@@ -100,12 +100,36 @@
               More</a>
           </div>
         </div>
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+          <img src="https://source.unsplash.com/user/rwlinder/likes" alt="Project Image"
+            class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-2 text-black dark:text-white">Project 3</h3>
+            <p class="text-gray-800 dark:text-gray-200 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Aenean id justo euismod, eleifend nibh vel, laoreet ipsum.</p>
+            <a href="#"
+              class="text-purple-500 font-medium mt-4 hover:text-purple-700 transition duration-300 ease-in-out">Read
+              More</a>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+          <img src="https://source.unsplash.com/user/ivrn/likes" alt="Project Image"
+            class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="font-bold text-xl mb-2 text-black dark:text-white">Project 4</h3>
+            <p class="text-gray-800 dark:text-gray-200 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Aenean id justo euismod, eleifend nibh vel, laoreet ipsum.</p>
+            <a href="#"
+              class="text-purple-500 font-medium mt-4 hover:text-purple-700 transition duration-300 ease-in-out">Read
+              More</a>
+          </div>
+        </div>
       </div>
     </section>
     <div class="h-10"></div>
   </main>
   <!-- Footer -->
-  <footer class=" bg-teal-100 dark:bg-blue-900 px-6 py-4">
+  <footer class=" relative inset-x-0 bottom-0 bg-teal-100 dark:bg-blue-900 px-6 py-4">
     <div class="container mx-auto">
       <div class="flex justify-between items-center">
         <div class="text-gray-800 dark:text-white">© 2023 My Personal Website. All Rights Reserved.</div>

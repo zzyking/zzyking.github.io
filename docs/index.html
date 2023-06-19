@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Page</title>
+  <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+  <link href="../public/output.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="bg-teal-100 dark:bg-blue-900 px-2 py-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between">
+        <div class="text-gray-800 dark:text-white text-2xl font-bold">
+          <a href="#" class="hover:text-gray-600">King's Website</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden block text-gray-800 dark:text-white hover:text-gray-600 focus:outline-none"
+          id="mobile-menu-btn">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M2.5 4a1 1 0 011-1h15a1 1 0 110 2H3.5a1 1 0 01-1-1zM2 9a1 1 0 011-1h15a1 1 0 110 2H3a1 1 0 01-1-1zM2 14a1 1 0 011-1h15a1 1 0 110 2H3a1 1 0 01-1-1z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <!-- Navigation Menu -->
+        <nav class="md:flex md:items-center md:space-x-6 hidden" id="nav-menu">
+            <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Home</a>
+            <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">About</a>
+            <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Portfolio</a>
+            <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Contact</a>
+        </nav>
+        <!--Mobile Navigation Menu-->
+        <div class="md:hidden mobile-nav" id="mobile-nav-menu">
+            <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Home</a>
+            <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">About</a>
+            <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Portfolio</a>
+            <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Contact</a>
+        </div>
+        <!-- Dark Mode Toggle -->
+        <button class="text-gray-800 dark:text-white focus:outline-none ml-4" aria-label="Dark Mode">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <main class="dark:bg-slate-800">
+    <div class="h-4"></div>
+    <!-- Content Section -->
+    <section class="container mx-auto mt-10">
+        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Table of Contents</h2>
+            <ul class="space-y-2">
+                <li>
+                    <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:underline">Article 1</a>
+                    <span class="text-gray-500 dark:text-gray-400 text-sm ml-80">2022-10-01</span>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:underline">Article 2</a>
+                    <span class="text-gray-500 dark:text-gray-400 text-sm ml-80">2022-10-02</span>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:underline">Article 3</a>
+                    <span class="text-gray-500 dark:text-gray-400 text-sm ml-80">2022-10-03</span>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:underline">Article 4</a>
+                    <span class="text-gray-500 dark:text-gray-400 text-sm ml-80">2022-10-04</span>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-800 dark:text-white hover:text-gray-600 hover:underline">Article 5</a>
+                    <span class="text-gray-500 dark:text-gray-400 text-sm ml-80">2022-10-05</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <div class="h-10"></div>
+  </main>
+  <!-- Footer -->
+  <footer class=" absolute inset-x-0 bottom-0 bg-teal-100 dark:bg-blue-900 px-6 py-4">
+    <div class="container mx-auto">
+      <div class="flex justify-between items-center">
+        <div class="text-gray-800 dark:text-white">© 2023 My Personal Website. All Rights Reserved.</div>
+        <div class="flex space-x-4">
+          <a href="https://twitter.com/KingZang2" target="_blank"
+            class="text-gray-800 dark:text-white hover:text-gray-600">
+            <span class="iconify" data-icon="mdi:twitter" data-inline="false"></span>
+          </a>
+          <a href="https://www.linkedin.com/in/%E6%B3%BD%E5%85%83-%E8%87%A7-958b67279/" target="_blank"
+            class="text-gray-800 dark:text-white hover:text-gray-600">
+            <span class="iconify" data-icon="mdi:linkedin" data-inline="false"></span>
+          </a>
+          <a href="https://github.com/zzyking" target="_blank"
+            class="text-gray-800 dark:text-white hover:text-gray-600">
+            <span class="iconify" data-icon="mdi:github" data-inline="false"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+<script>
+  const toggle = document.querySelector('button[aria-label="Dark Mode"]');
+  const body = document.querySelector('body');
+  toggle.addEventListener('click', () => {
+    body.classList.toggle('dark');
+  });
+</script>
+<script>
+  const menuBtn = document.querySelector('#mobile-menu-btn');
+  const mobileNav = document.querySelector('#mobile-nav-menu');
+  menuBtn.addEventListener('click', () => {
+    mobileNav.classList.toggle('hidden');
+  });
+</script>
+
+</html>
