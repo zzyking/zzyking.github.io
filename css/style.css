@@ -1,0 +1,475 @@
+/* 
+    Skeuomorphic Design v3 (Custom PNG Background)
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: "Linux Libertine", "Linux Libertine O", "Georgia", "Times New Roman", "Noto Serif SC", "Songti SC", serif;
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    
+    background-color: #262626; /* 图片加载失败时的底色 */
+    
+    background-image: var(--bg-texture-dark);
+    background-repeat: repeat; /* 如果是小纹理，让它平铺 */
+    background-attachment: fixed; /* 背景固定，不随滚动条滚动（更像桌面） */
+}
+
+/* 给你背景加一层暗角 (Vignette)，让中间亮四周暗，更有质感 */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* 纸张样式 */
+.paper {
+    width: 100%;
+    max-width: 740px;
+    background-color: var(--paper-bg);
+    position: relative;
+    
+    /* 逼真的纸张阴影 */
+    box-shadow: 
+        0 2px 10px rgba(0,0,0,0.5),
+        0 0 60px rgba(189, 178, 150, 0.2) inset;
+    
+    border-radius: 3px;
+    padding-top: 70px;
+    padding-bottom: 30px;
+    padding-left: 60px;
+    padding-right: 60px;
+    box-sizing: border-box;
+    margin: 0 20px;
+
+    /* 纸张表面微噪点 */
+    background-image: var(--paper-texture-img);
+    background-repeat: repeat;
+}
+
+/* 纸张边缘 */
+.paper::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+
+/* ---------------- 排版样式 (保持不变) ---------------- */
+h1 {
+    font-size: 2.3em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #222;
+    text-align: center;
+}
+
+.name-cn {
+    font-size: 0.55em;
+    font-weight: 400;
+    color: #222;
+    margin-left: 10px;
+    letter-spacing: 1px;
+    vertical-align: middle;
+}
+
+.subtitle {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-meta);
+    margin-bottom: 18px;
+    font-family: "Georgia", serif;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    font-size: 0.95em;
+}
+
+.contact-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    color: var(--link-color);
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(240,240,240,0.9));
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 1px 2px rgba(0,0,0,0.2);
+    transition: all 0.15s ease;
+}
+
+.contact-chip:hover {
+    color: var(--link-hover);
+    background-color: rgba(255,255,255,0.95);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,1),
+        0 2px 6px rgba(0,0,0,0.25);
+    transform: translateY(-1px);
+    border-radius: 8px;
+}
+
+.contact-chip:focus-visible {
+    outline: 2px solid rgba(0,68,169,0.3);
+    outline-offset: 2px;
+}
+
+.contact-chip .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-chip .icon i {
+    font-size: 18px;
+}
+
+.kz-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.paper a:not(.contact-chip) {
+    color: var(--link-color);
+    text-decoration: none;
+    padding: 0 1px 1px;
+    border-bottom: 1px dotted rgba(0,0,0,0.25);
+    transition: color 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.paper a:not(.contact-chip):hover {
+    color: var(--link-hover);
+    background-color: rgba(0, 68, 169, 0.07);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.paper a:not(.contact-chip):focus-visible {
+    outline: 2px solid rgba(0,68,169,0.3);
+    outline-offset: 2px;
+}
+
+aside {
+    margin-top: 50px;
+    padding: 10px 8px;
+    background: rgba(186, 52, 52, 0.08); /* 山楂红淡底 */
+    border-left: 4px solid #c4463fc0;
+    border-radius: 3px;
+    box-shadow:
+        inset 0 0px 0 rgba(255,255,255,0.9),
+        0 1px 3px rgba(0,0,0,0.12);
+    color: #5b211c;
+}
+
+sup {
+    vertical-align: super;     /* 保持上标位置 */
+    line-height: 0;       /* 避免影响行高 */
+}
+
+h2 {
+    /* 1. 布局：利用 Flexbox 实现居中 + 两侧自适应横线 */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    /* 2. 字体：使用衬线体 + 小型大写字母，典雅庄重 */
+    font-family: "Linux Libertine", "Linux Libertine O", "Georgia", serif;
+    font-variant: small-caps; /* 把小写变成小型大写 */
+    font-size: 1.5em;
+    font-weight: 300;
+    letter-spacing: 3px; /* 拉开字距 */
+    
+    color: #55514d; /* 暖灰色 */
+    
+    margin-top: 50px;
+    margin-bottom: 30px;
+    
+    /* 清除可能存在的旧边框属性 */
+    border-bottom: none;
+    padding-bottom: 0;
+    box-shadow: none;
+}
+
+/* 3. 两侧的横线 (核心部分) */
+h2::before,
+h2::after {
+    content: "";
+    flex: 1; /* 让线条自动撑满剩余空间 */
+    
+    /* 
+    拟物化凹槽线条效果：
+    上边框是深色（阴影），下边框是白色（高光）
+    看起来就像纸被压下去了一条线
+    */
+    /* 1. 给凹槽一个明显的物理高度 */
+    height: 4px; 
+    
+    /* 2. 圆角，像工具压出来的痕迹 */
+    border-radius: 1px; 
+    
+    /* 3. 凹槽底部的颜色（比纸张稍深，模拟深度） */
+    background-color: rgba(0,0,0,0.04); 
+    
+    /* 4. 关键：内阴影(上) + 外高光(下) */
+    box-shadow: 
+        /* 内部上方阴影：模拟光线照不到的凹陷深处 */
+        inset 0 1px 2px rgba(0,0,0,0.15),
+        /* 外部下方高光：模拟凹槽边缘的反光 */
+        0 1px 0 rgba(255,255,255,0.7);
+        
+    /* 5. 增加一点边框界限感 */
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* 4. 线条和文字之间的间距 */
+h2::before {
+    margin-right: 20px; /* 左线离文字的距离 */
+}
+
+h2::after {
+    margin-left: 20px; /* 右线离文字的距离 */
+}
+
+h3.subheading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Linux Libertine", "Linux Libertine O", "Georgia", serif;
+    font-variant: small-caps;
+    font-size: 1.25em;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--text-meta);
+    margin: 20px 0 20px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+}
+
+p {
+    line-height: 1.75;
+    margin-bottom: 1.2em;
+}
+
+.entry {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #dcd8c5c2;
+}
+
+.entry li{
+    line-height: 1.25;
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 20px;
+    color: #555;
+}
+
+.entry p{
+    line-height: 1.25;
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: #555;
+}
+
+.entry:last-child { border-bottom: none; margin-bottom: -15px; }
+
+.entry-title {
+    display: block;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 5px;
+}
+
+.entry-meta {
+    font-size: 0.9em;
+    color: var(--text-meta);
+    font-style: italic;
+}
+
+.tag-soft {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 6px;
+    font-size: 0.65em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: rgba(0,0,0,0.55);
+    background: rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+.me {
+    font-weight: bold;
+    color: #000;
+    background: rgba(0,0,0,0.04);
+    border-top: 1px solid rgba(255,255,255,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    padding: 0 3px;
+    border-radius: 2px;
+}
+
+ul { padding-left: 20px; }
+li {
+    margin-bottom: 10px;
+}
+li:last-child {
+    margin-bottom: -15px;
+}
+
+
+
+/* 容器：网格布局 */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* 图标外层：拟物化边框和光泽 */
+.tech-badge {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    
+    /* 1. iOS 6 经典的圆角矩形 */
+    border-radius: 10px; 
+    
+    /* 2. 边框：外深内浅，形成立体感 */
+    border: 1px solid #b0aca0;
+    box-shadow: 
+        0 1px 3px rgba(0,0,0,0.2), /* 投影 */
+        inset 0 1px 0 rgba(255,255,255,0.8); /* 顶部高光 */
+        
+    /* 3. 背景：米白色渐变，像塑料或陶瓷 */
+    background: linear-gradient(to bottom, #f9f9f9, #e0e0e0);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* 核心：对 SkillIcons 进行复古调色 */
+.tech-badge img {
+    width: 32px;
+    height: 32px;
+    
+    /* 
+    关键滤镜：
+    1. sepia(0.6): 施加褐色滤镜，匹配暖黄纸张
+    2. contrast(0.9): 降低对比度，去除现代图标的“锐利感”
+    3. saturate(0.8):稍微降低饱和度，去除霓虹色
+    */
+    filter: sepia(0.3) contrast(0.85) saturate(0.9);
+    
+    /* 让图标稍微透明一点，仿佛印在材质上 */
+    opacity: 0.9; 
+}
+
+/* 4. 添加一层“玻璃反光” (Glass Shine) */
+.tech-badge::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background:
+        linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.1) 80%),
+        radial-gradient(90% 70% at 50% 0%, rgba(255,255,255,0.6), rgba(255,255,255,0) 60%);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 50% 35%;
+    border-bottom-right-radius: 50% 35%;
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    body { padding-top: 20px; }
+    .paper { padding: 40px 25px; margin: 0 10px; }
+    h1 { font-size: 2.1em; }
+}
+
+/* 复古页脚样式 */
+.vintage-footer {
+    margin-top: 120px; /* 离主体内容远一点 */
+    padding-top: 20px;
+    text-align: center;
+    position: relative;
+    color: rgba(60, 60, 60, 0.6); /* 像褪色的墨水 */
+}
+
+
+.vintage-footer p {
+    margin: 5px 0;
+    font-family: "Courier New", Courier, monospace; /* 打字机字体 */
+    font-size: 0.85em;
+}
+
+/* 爱心样式 */
+.vintage-footer .heart {
+    color: #d64541; /* 复古红，不刺眼 */
+    font-size: 1.1em;
+    vertical-align: -1px; /* 微调对齐 */
+    display: inline-block;
+}
+
+/* 强调文字样式 */
+.vintage-footer .skeuo {
+    font-weight: bold;
+    font-style: italic;
+    color: #444;
+    background: rgba(0,0,0,0.04);
+    border-top: 1px solid rgba(255,255,255,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    padding: 3px 5px 1px 5px;
+    border-radius: 2px;
+}
+
+/* 鼠标放上去时，爱心跳动一下 */
+.vintage-footer:hover .heart {
+    animation: heartbeat 1s infinite;
+}
+
+.vintage-footer .apple-logo {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; /* 强制使用苹果系统字体渲染 Logo */
+    font-style: normal; /* Logo 保持端正，不随文字倾斜 */
+    margin-right: 1px;
+    font-size: 1.05em; /* 稍微大一点点以对齐文字 */
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
