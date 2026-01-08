@@ -4,166 +4,294 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>King's Personal Website</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-  <link href="./public/output.css" rel="stylesheet" />
+  <title>Zeyuan Zang</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/textures.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <!-- Header -->
-  <header class="sticky top-0 w-full bg-teal-100 dark:bg-blue-900 px-2 py-3">
-    <div class="container mx-auto">
-      <div class="flex items-center justify-between">
-        <div class="text-gray-800 dark:text-white text-2xl font-bold">
-          <a href="https://zzyking.github.io/welcome" class="hover:text-gray-600">King's Website</a>
-        </div>
-        <!-- Mobile Menu Button -->
-        <button class="md:hidden block text-gray-800 dark:text-white hover:text-gray-600 focus:outline-none"
-          id="mobile-menu-btn">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd"
-              d="M2.5 4a1 1 0 011-1h15a1 1 0 110 2H3.5a1 1 0 01-1-1zM2 9a1 1 0 011-1h15a1 1 0 110 2H3a1 1 0 01-1-1zM2 14a1 1 0 011-1h15a1 1 0 110 2H3a1 1 0 01-1-1z"
-              clip-rule="evenodd" />
-          </svg>
-        </button>
-
-        <!-- Navigation Menu -->
-        <nav class="md:flex md:items-center md:space-x-6 hidden" id="nav-menu">
-          <a href="https://zzyking.github.io/" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Home</a>
-          <a href="https://zzyking.github.io/about" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">About</a>
-          <a href="https://zzyking.github.io/docs" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Portfolio</a>
-          <a href="https://zzyking.github.io/contact" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Contact</a>
-        </nav>
-        <!--Mobile Navigation Menu-->
-        <div class="md:hidden mobile-nav" id="mobile-nav-menu">
-          <a href="https://zzyking.github.io/" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Home</a>
-          <a href="https://zzyking.github.io/about" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">About</a>
-          <a href="https://zzyking.github.io/docs" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Portfolio</a>
-          <a href="https://zzyking.github.io/contact" class="text-gray-800 dark:text-white hover:text-gray-600 hover:scale-110 transition duration-300 ease-in-out">Contact</a>
-        </div>
-        <!-- Dark Mode Toggle -->
-        <button class="text-gray-800 dark:text-white focus:outline-none ml-4" aria-label="Dark Mode">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd"
-              d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-              clip-rule="evenodd" />
-          </svg>
-        </button>
+  <main class="paper">
+        <header>
+          <h1>Zeyuan Zang <span class="name-cn">臧泽元</span></h1>
+      <div class="subtitle">
+        B.Eng. Student @ BUPT &nbsp • &nbsp Incoming Ph.D. @ ZGCA
       </div>
-    </div>
-  </header>
-  <main class="bg-white dark:bg-slate-800">
-    <div class="h-4"></div>
-    <!-- Hero Section -->
-    <section
-      class="rounded-lg shadow-md overflow-hidden bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white px-20 py-20 mb-4 mx-4">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="md:w-1/2">
-            <h1 class="text-4xl font-bold mb-6">Welcome to my personal website</h1>
-            <p class="text-xl mb-6">I'm a freshman undergraduate in BUPT. I like building websites and web applications
-              using modern web technologies.</p>
-            <a href="#"
-              class="bg-white text-gray-900 py-2 px-4 rounded-md font-medium hover:bg-gray-100 transition duration-300 ease-in-out">Learn
-              More</a>
-          </div>
+      <div class="contact-info" aria-label="Contact links">
+        <a class="contact-chip" href="mailto:zangzeyuan@bupt.edu.cn" aria-label="Email">
+          <span class="icon" aria-hidden="true">
+            <i class="fa-solid fa-envelope"></i>
+          </span>
+        </a>
+        <a class="contact-chip" href="https://github.com/zzyking" target="_blank" rel="noopener noreferrer"
+          aria-label="GitHub">
+          <span class="icon" aria-hidden="true">
+            <i class="fa-brands fa-github"></i>
+          </span>
+        </a>
+        <a class="contact-chip" href="https://scholar.google.com/citations?user=flMNVJcAAAAJ" target="_blank"
+          rel="noopener noreferrer" aria-label="Google Scholar">
+          <span class="icon" aria-hidden="true">
+            <i class="fa-brands fa-google-scholar"></i>
+          </span>
+        </a>
+        <a class="contact-chip" href="https://twitter.com/KingZang2" target="_blank" rel="noopener noreferrer"
+          aria-label="Twitter">
+          <span class="icon" aria-hidden="true">
+            <i class="fa-brands fa-x-twitter"></i>
+          </span>
+        </a>
+        <a class="contact-chip" href="https://www.linkedin.com/in/zeyuan-zang-958b67279/"
+          target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <span class="icon" aria-hidden="true">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </span>
+        </a>
+        <a class="contact-chip" href="http://kingz.space/" target="_blank" rel="noopener noreferrer"
+          aria-label="Personal site: kingz.space">
+          <span class="icon" aria-hidden="true">
+            <svg class="kz-icon" viewBox="0 0 270 270" aria-hidden="true" focusable="false" fill="none">
+              <path d="M86.4004 11H183.6C198.902 11 209.718 11.0086 218.171 11.6992C226.495 12.3793 231.555 13.6656 235.521 15.6865C243.612 19.8091 250.191 26.3875 254.313 34.4785C256.334 38.445 257.621 43.5049 258.301 51.8291C258.991 60.2818 259 71.0977 259 86.4004V183.6C259 198.902 258.991 209.718 258.301 218.171C257.621 226.495 256.334 231.555 254.313 235.521C250.191 243.612 243.612 250.191 235.521 254.313C231.555 256.334 226.495 257.621 218.171 258.301C209.718 258.991 198.902 259 183.6 259H86.4004C71.0977 259 60.2818 258.991 51.8291 258.301C43.5049 257.621 38.445 256.334 34.4785 254.313C26.3875 250.191 19.8091 243.612 15.6865 235.521C13.6656 231.555 12.3793 226.495 11.6992 218.171C11.0086 209.718 11 198.902 11 183.6V86.4004C11 71.0977 11.0086 60.2818 11.6992 51.8291C12.3793 43.5049 13.6656 38.445 15.6865 34.4785C19.8091 26.3875 26.3875 19.8091 34.4785 15.6865C38.445 13.6656 43.5049 12.3793 51.8291 11.6992C60.2818 11.0086 71.0977 11 86.4004 11Z" stroke="currentColor" stroke-width="22" fill="none"/>
+              <path d="M203.662 47.4344C217.8 47.4336 227.119 62.0689 221.269 74.8378L202.651 105.951L202.597 106.043L202.544 106.135L180.255 145.067L142.078 210.32L139.519 214.469C132.965 225.089 117.979 226.277 109.834 216.821L109.764 216.74L109.693 216.66L52.7805 153.134C45.0224 144.474 45.7405 131.168 54.3854 123.393L54.5517 123.243L54.7121 123.087L107.474 71.5999C118.169 61.1636 122.303 57.2257 126.94 54.4383C131.278 51.8307 135.995 49.9104 140.921 48.7469C146.186 47.5032 151.895 47.4353 166.838 47.4353L194.5 47.4347L203.662 47.4344Z" stroke="currentColor" stroke-width="22" fill="none"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <section aria-labelledby="about-heading">
+      <h2 id="about-heading">About Me</h2>
+      <p>
+        I am a 4<sup>th</sup>-year undergraduate student majoring in Computer Science and Technology at the
+        <strong><a href="https://future.bupt.edu.cn/" target="_blank">School of Future</a>, Beijing University of Posts and Telecommunications (BUPT)</strong>, currently
+        conducting research on Large Vision-Language Models (LVLMs) at the Center of Intelligence Science and Technology
+        (CIST), advised by <strong>Prof. Xiaojie Wang</strong>.
+      </p>
+
+      <p style="margin-bottom: -5px">My current research interests include:</p>
+      <ul>
+        <li>Boosting resoning abilities of Large Vision-Language Models (LVLMs)</li>
+        <li>Vision-Language representation learning</li>
+        <li>Novel architectures inspired by cognitive heuristics</li>
+        <li>Improving LVLMs' reliability with high-quality data</li>
+      </ul>
+      
+      <aside>
+        <strong>Sep. 2025:</strong> I have been admitted to the direct Ph.D. program at <strong><a href="https://www.bjzgca.edu.cn/en/" target="_blank">Zhongguancun Academy</a></strong>.
+      </aside>
+    </section>
+
+    <section aria-labelledby="publications-heading">
+      <h2 id="publications-heading">Research & Publications</h2>
+
+      <!-- <article class="entry">
+        <span class="entry-title">ReVision: Reviser on Vision for Mitigating Hallucination in LVLMs</span>
+        <div class="entry-meta">
+          <span class="me">Zeyuan Zang</span>, Hanzi Wang, Fangxiang Feng, Xiaojie Wang.<br>
+          Under Review at <em>CVPR 2026</em>.
+        </div>
+      </article> -->
+
+      <article class="entry">
+        <span class="entry-title">Reading Images Like Texts: Sequential Image Understanding in Vision-Language
+          Models</span>
+        <div class="entry-meta">
+          Yueyan Li, Chenggong Zhao, <span class="me">Zeyuan Zang</span>, Caixia Yuan, Xiaojie Wang. arXiv preprint arXiv:2509.19191<br><a href="https://arxiv.org/abs/2509.19191" target="_blank">Paper</a>&nbsp <a href="https://github.com/Siriuslala/vlm_interp" target="_blank">Code</a>
+        </div>
+      </article>
+
+      <article class="entry">
+        <span class="entry-title">VL-DynaRefine: A Vision-Language Dynamic Refinement Approach for Visual
+          Reasoning</span>
+        <div class="entry-meta">
+          Jing Ma, Haochen Sun, <span class="me">Zeyuan Zang</span>, Fangxiang Feng, Caixia Yuan, Lei Ren, Huixing Jiang, Chen Wei, Xiaojie Wang. Accepted by <em>ACM Multimedia (ACM MM) 2025</em>. DOI: 10.1145/3746027.3755296<br><a href="https://dl.acm.org/doi/abs/10.1145/3746027.3755296" target="_blank">Paper</a>
+        </div>
+      </article>
+
+      <article class="entry">
+        <span class="entry-title">Crop-and-Prompt: Multi-Grained Prompting for Fine-Grained Visual-Language
+          Understanding</span>
+        <div class="entry-meta">
+          <span class="me">Zeyuan Zang</span>, Hanzi Wang. Accepted by <em>CAIBDA 2025</em>. DOI: 10.1109/CAIBDA65784.2025.11182630<br><a href="https://ieeexplore.ieee.org/abstract/document/11182630" target="_blank">Paper</a>&nbsp <a href="https://github.com/zzyking/Crop-and-Prompt", target="_blank">Code</a>
+        </div>
+      </article>
+
+      <!-- <article class="entry">
+        <span class="entry-title">CoSim: An Optimization Framework for Linguistic Steganalysis Based on Text
+          Reconstruction</span>
+        <div class="entry-meta">
+          Jichen Zhang, Jingbin Niu, <span class="me">Zeyuan Zang</span>, Xu Shen, Ru Zhang.<br>
+          Under Review at <em>IEEE Signal Processing Letters</em>.
+        </div>
+      </article> -->
+
+      <h3 class="subheading">Research Grants</h3>
+      <article class="entry">
+        <span class="entry-title">Beijing Municipal Natural Science Foundation Undergraduate Research Project</span>
+        <div class="entry-meta">
+          Participant · Project No. QY24212 · 2024.11 - Present · Expected completion: 2026.05
+        </div>
+        <p style="margin-bottom: -10px;"><strong>Topic:</strong> Research and Application of Event Causality Identification Based on Causal Graphs</p>
+        <ul>
+          <li>Responsible for implementing and evaluating a causal graph-based causal reasoning model.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <span class="entry-title">“Future Scholar” Project, School of Future, BUPT</span>
+        <div class="entry-meta">
+          Principal Investigator · Project No. 2024WLXZ06 · 2024.09 - 2025.08 · Rated: Excellent
+        </div>
+        <p style="margin-bottom: -10px;"><strong>Topic:</strong> Optimization of Vision-Language Models for Fine-Grained Perception Tasks</p>
+        <ul>
+          <li>Organized and executed the project, leading method design, implementation, and evaluation.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Selected Projects</h2>
+      <article class="entry">
+        <span class="entry-title">Deepreader: Agentic Document Reading Toolkit
+          <span class="tag-soft">under development</span>
+        </span>
+        <div class="entry-meta">
+          <a href="https://github.com/zzyking/DeepReader-OCR" target="_blank">Code</a>
+        </div>
+        <ul>
+          <li>Deepseek-OCR implemented in vLLM backend for document parsing, with tweaks (concurrency control, Lossless PDF with bounding box, markdown with clearer images) added.</li>
+          <li>Planning to integrate with LangChain to build an agentic document reading system.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <span class="entry-title">HADAR: <u>H</u>igh-<u>A</u>ltitude Object Dropping <u>D</u>etection, <u>A</u>larm, and <u>R</u>ecord Filing System</span>
+        <div class="entry-meta">
+          On display at the WSIS+20 event and AI for Good Summit 2025, Geneva, Switzerland.<br>
+          <strong>Honorary Mention</strong> (top 21/148) in the IEEE 2025 ComSoc Student Competition.<br>
+          <a href="docs/Zang_An Edge-Cloud Collaborative Urban Safety System for High-Altitude Object Dropping Detection, Alarm, and Record Filing.pdf">Report</a>&nbsp <a href="https://github.com/Magnstiff/raspberry-detection" target="_blank">Code1</a>&nbsp <a href="https://github.com/Magnstiff/record-platform-vue" target="_blank">Code2</a>
+        </div>
+        <ul>
+          <li>Developed a lightweight object dropping detection algorithm achieving 6-10 FPS real-time performance and 75% accuracy on Raspberry Pi.</li>
+          <li>Designed and implemented an incident recording system for surveillance applications, composed of a responsive H5 frontend built with Vue.js and a scalable backend service built with Node.js.</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <span class="entry-title">Digital Dude: Multimodal Digital Human Interaction System</span>
+        <div class="entry-meta">
+          Project done during professional engineering training at Beijing ZX-CE Technology Co., Ltd.<br>
+          <a href="https://github.com/zzyking/digital-dude" target="_blank">Code</a>
+        </div>
+        <p>
+          A multimodal digital human interaction frontend application based on React + TypeScript + WebRTC, supporting speech, gesture, facial expression recognition, and real-time conversation features.
+        </p>
+      </article>
+    </section>
+
+    <section aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <article class="entry">
+        <span class="entry-title">Beijing University of Posts and Telecommunications</span>
+        <div class="entry-meta">
+          B.Eng. Computer Science and Technology (School of Future) · 2022.09 - 2026.07 est.
+        </div>
+        <ul>
+          <li>GPA: <strong>3.79/4</strong> (Score: 90.92/100, Rank: 5/30) | IELTS: 7.5, CET-6: 615, CET-4: 669</li>
+          <li>Honors: 1<sup>st</sup> Class Scholarship (2025), Xiaomi Scholarship (1<sup>st</sup> class, 2024), Merit Student of Beijing (2024), Merit Student of BUPT (2024, 2025)</li>
+        </ul>
+      </article>
+      <article class="entry">
+        <span class="entry-title">Northeast Yucai School</span>
+        <div class="entry-meta">
+          2-year Junior + 3-year Senior High School (<a href="https://zh.wikipedia.org/wiki/%E4%B8%9C%E5%8C%97%E8%82%B2%E6%89%8D%E5%AD%A6%E6%A0%A1#1980%E5%B9%B4-2000%E5%B9%B4" target="_blank">Gifted Education Experimental Division</a>) · 2017.09 - 2022.07
+        </div>
+        <p>
+          Graduated at 16.
+        </p>
+    </section>
+
+    <section aria-labelledby="tech-heading">
+      <h2 id="tech-heading">Tech Stack</h2>
+      <div class="skills-grid">
+        <!-- 使用 skillicons.dev 的图标 -->
+
+        <div class="tech-badge" title="Python">
+          <img src="https://skillicons.dev/icons?i=python" alt="Python" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="PyTorch">
+          <img src="https://skillicons.dev/icons?i=pytorch" alt="PyTorch" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="C++">
+          <img src="https://skillicons.dev/icons?i=cpp" alt="C++" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="React">
+          <img src="https://skillicons.dev/icons?i=react" alt="React" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="Node.js">
+          <img src="https://skillicons.dev/icons?i=nodejs" alt="Node.js" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="TypeScript">
+          <img src="https://skillicons.dev/icons?i=ts" alt="TypeScript" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="Vite">
+          <img src="https://skillicons.dev/icons?i=vite" alt="Vite" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="Rust">
+          <img src="https://skillicons.dev/icons?i=rust" alt="Rust" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="OpenCV">
+          <img src="https://skillicons.dev/icons?i=opencv" alt="OpenCV" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="MongoDB">
+          <img src="https://skillicons.dev/icons?i=mongodb" alt="MongoDB" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="SQLite">
+          <img src="https://skillicons.dev/icons?i=sqlite" alt="SQLite" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="Kali">
+          <img src="https://skillicons.dev/icons?i=kali" alt="Kali" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="Docker">
+          <img src="https://skillicons.dev/icons?i=docker" alt="TypeScript" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="Git">
+          <img src="https://skillicons.dev/icons?i=git" alt="Git" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="Linux">
+          <img src="https://skillicons.dev/icons?i=linux" alt="Linux" loading="lazy">
+        </div>
+
+        <div class="tech-badge" title="Latex">
+          <img src="https://skillicons.dev/icons?i=latex" alt="Latex" loading="lazy">
         </div>
       </div>
     </section>
-
-    <!-- Content Section -->
-    <section class="container mx-auto mt-10">
-      <h2 class="text-3xl font-bold mb-6 text-black dark:text-white">Some of my recent projects</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-          <img src="https://source.unsplash.com/user/angusyang9/likes" alt="Project Image"
-            class="w-full h-64 object-cover">
-          <div class="p-6">
-            <h3 class="font-bold text-xl mb-2 text-black dark:text-white">Project 1</h3>
-            <p class="text-gray-800 dark:text-gray-200 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Aenean id justo euismod, eleifend nibh vel, laoreet ipsum.</p>
-            <a href="#"
-              class="text-purple-500 font-medium mt-4 hover:text-purple-700 transition duration-300 ease-in-out">Read
-              More</a>
-          </div>
-        </div>
-        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-          <img src="https://source.unsplash.com/user/marekpiwnicki/likes" alt="Project Image"
-            class="w-full h-64 object-cover">
-          <div class="p-6">
-            <h3 class="font-bold text-xl mb-2 text-black dark:text-white">Project 2</h3>
-            <p class="text-gray-800 dark:text-gray-200 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Aenean id justo euismod, eleifend nibh vel, laoreet ipsum.</p>
-            <a href="#"
-              class="text-purple-500 font-medium mt-4 hover:text-purple-700 transition duration-300 ease-in-out">Read
-              More</a>
-          </div>
-        </div>
-        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-          <img src="https://source.unsplash.com/user/rwlinder/likes" alt="Project Image"
-            class="w-full h-64 object-cover">
-          <div class="p-6">
-            <h3 class="font-bold text-xl mb-2 text-black dark:text-white">Project 3</h3>
-            <p class="text-gray-800 dark:text-gray-200 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Aenean id justo euismod, eleifend nibh vel, laoreet ipsum.</p>
-            <a href="#"
-              class="text-purple-500 font-medium mt-4 hover:text-purple-700 transition duration-300 ease-in-out">Read
-              More</a>
-          </div>
-        </div>
-        <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
-          <img src="https://source.unsplash.com/user/ivrn/likes" alt="Project Image"
-            class="w-full h-64 object-cover">
-          <div class="p-6">
-            <h3 class="font-bold text-xl mb-2 text-black dark:text-white">Project 4</h3>
-            <p class="text-gray-800 dark:text-gray-200 text-base">Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Aenean id justo euismod, eleifend nibh vel, laoreet ipsum.</p>
-            <a href="#"
-              class="text-purple-500 font-medium mt-4 hover:text-purple-700 transition duration-300 ease-in-out">Read
-              More</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <div class="h-10"></div>
+    <footer class="vintage-footer">
+      <p>© 2026 Zeyuan Zang</p>
+      <p class="tribute">
+        Built with <span class="heart">♥</span> and nostalgia for <span class="skeuo">old-time <span
+            class="apple-logo"></span></span>.
+      </p>
+    </footer>
   </main>
-  <!-- Footer -->
-  <footer class=" sticky inset-x-0 bottom-0 bg-teal-100 dark:bg-blue-900 px-6 py-2">
-    <div class="container mx-auto">
-      <div class="flex justify-between items-center">
-        <div class="text-sm text-gray-800 dark:text-white">© 2023 My Personal Website. All Rights Reserved.</div>
-        <div class="flex space-x-4">
-          <a href="https://twitter.com/KingZang2" target="_blank"
-            class="text-gray-800 dark:text-white hover:text-gray-600">
-            <span class="iconify" data-icon="mdi:twitter" data-inline="false"></span>
-          </a>
-          <a href="https://www.linkedin.com/in/%E6%B3%BD%E5%85%83-%E8%87%A7-958b67279/" target="_blank"
-            class="text-gray-800 dark:text-white hover:text-gray-600">
-            <span class="iconify" data-icon="mdi:linkedin" data-inline="false"></span>
-          </a>
-          <a href="https://github.com/zzyking" target="_blank"
-            class="text-gray-800 dark:text-white hover:text-gray-600">
-            <span class="iconify" data-icon="mdi:github" data-inline="false"></span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
+
 </body>
-<script>
-  const toggle = document.querySelector('button[aria-label="Dark Mode"]');
-  const body = document.querySelector('body');
-  toggle.addEventListener('click', () => {
-    body.classList.toggle('dark');
-  });
-</script>
-<script>
-  const menuBtn = document.querySelector('#mobile-menu-btn');
-  const mobileNav = document.querySelector('#mobile-nav-menu');
-  menuBtn.addEventListener('click', () => {
-    mobileNav.classList.toggle('hidden');
-  });
-</script>
 
 </html>

@@ -1,0 +1,18 @@
+:root {
+    /* 纸张颜色：极淡的暖黄色 */
+    --paper-bg: #fdfae7;
+    --text-main: #332f2c;
+    --text-meta: #7a7570;
+    --link-color: #2b5d9c;
+    --link-hover: #1a3a63;
+    --divider-color: #d8d4c5;
+    --highlight: #ffffff;
+
+    --bg-texture-dark: image-set(
+        url('../images/texture-dark.png') type('image/png')
+    );
+    --paper-texture-img: image-set(
+        url('../images/paper-texture.png') type('image/png')
+    );
+
+}
