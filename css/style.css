@@ -34,7 +34,7 @@ body::after {
 /* 纸张样式 */
 .paper {
     width: 100%;
-    max-width: 740px;
+    max-width: 800px;
     background-color: var(--paper-bg);
     position: relative;
     
