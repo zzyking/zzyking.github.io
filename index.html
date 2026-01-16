@@ -292,6 +292,31 @@
     </footer>
   </main>
 
+  <script>
+    (function () {
+      var endpoint = "https://zzyking-visit-log.zangking001.workers.dev/collect";
+      var payload = {
+        path: window.location.pathname,
+        ref: document.referrer || "",
+        ts: Date.now()
+      };
+      var body = JSON.stringify(payload);
+
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(endpoint, body);
+        return;
+      }
+
+      fetch(endpoint, {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: body,
+        keepalive: true
+      }).catch(function () { });
+    })();
+  </script>
+
 </body>
 
 </html>

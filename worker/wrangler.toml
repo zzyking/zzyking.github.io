@@ -1,0 +1,7 @@
+name = "zzyking-visit-log"
+main = "worker.js"
+compatibility_date = "2024-10-01"
+
+kv_namespaces = [
+  { binding = "VISITS", id = "a272f91bcf184984bfb3a8b230c6982d", preview_id = "f765a1413462440b91e5ca69ccdc2e28" }
+]
