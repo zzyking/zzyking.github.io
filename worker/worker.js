@@ -3,6 +3,19 @@ const ALLOWED_ORIGINS = new Set([
   "http://localhost:8787"
 ]);
 const TTL_SECONDS = 60 * 60 * 24 * 30;
+const TRANSPARENT_GIF_BASE64 = "R0lGODlhAQABAPAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+
+function base64ToUint8Array(base64) {
+  var binary = atob(base64);
+  var len = binary.length;
+  var bytes = new Uint8Array(len);
+  for (var i = 0; i < len; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes;
+}
+
+var GIF_BYTES = base64ToUint8Array(TRANSPARENT_GIF_BASE64);
 
 function buildCorsHeaders(origin) {
   var headers = {
@@ -69,7 +82,7 @@ async function parseBody(request) {
 export default {
   async fetch(request, env, ctx) {
     var url = new URL(request.url);
-    if (url.pathname !== "/collect") {
+    if (url.pathname !== "/img/p") {
       return new Response("Not Found", { status: 404 });
     }
 
@@ -120,6 +133,13 @@ export default {
     };
 
     ctx.waitUntil(env.VISITS.put(key, JSON.stringify(record), { expirationTtl: TTL_SECONDS }));
+
+    if (request.method === "GET") {
+      var responseHeaders = new Headers(corsHeaders);
+      responseHeaders.set("Content-Type", "image/gif");
+      responseHeaders.set("Cache-Control", "no-store");
+      return new Response(GIF_BYTES, { status: 200, headers: responseHeaders });
+    }
 
     return new Response(null, { status: 204, headers: corsHeaders });
   }

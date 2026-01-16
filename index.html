@@ -294,26 +294,15 @@
 
   <script>
     (function () {
-      var endpoint = "https://zzyking-visit-log.zangking001.workers.dev/collect";
-      var payload = {
+      var endpoint = "https://zzyking-visit-log.zangking001.workers.dev/img/p";
+      var params = new URLSearchParams({
         path: window.location.pathname,
         ref: document.referrer || "",
-        ts: Date.now()
-      };
-      var body = JSON.stringify(payload);
-
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(endpoint, body);
-        return;
-      }
-
-      fetch(endpoint, {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-        body: body,
-        keepalive: true
-      }).catch(function () { });
+        ts: String(Date.now())
+      });
+      var img = new Image();
+      img.src = endpoint + "?" + params.toString();
+      window.__visitPing = img;
     })();
   </script>
 
