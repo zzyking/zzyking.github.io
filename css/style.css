@@ -272,6 +272,10 @@ p {
     margin-bottom: 1.2em;
 }
 
+em {
+    color: #8a302cc0;
+}
+
 .entry {
     margin-bottom: 15px;
     padding-bottom: 15px;
