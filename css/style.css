@@ -2,6 +2,54 @@
     Skeuomorphic Design v3 (Custom PNG Background)
 */
 
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("../fonts/LinLibertine_Rah.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("../fonts/LinLibertine_RIah.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("../fonts/LinLibertine_RZah.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("../fonts/LinLibertine_RZIah.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("../fonts/LinLibertine_RBah.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("../fonts/LinLibertine_RBIah.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 body {
     margin: 0;
     padding: 0;
