@@ -56,17 +56,6 @@ body {
     min-height: 100vh;
     font-family: "Linux Libertine", "Linux Libertine O", "Georgia", "Times New Roman", "Noto Serif CJK SC", serif;
     color: var(--text-main);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    
-    background-color: #262626; /* 图片加载失败时的底色 */
-    
-    background-image: var(--bg-texture-dark);
-    background-repeat: repeat; /* 如果是小纹理，让它平铺 */
-    background-attachment: fixed; /* 背景固定，不随滚动条滚动（更像桌面） */
 }
 
 /* 给你背景加一层暗角 (Vignette)，让中间亮四周暗，更有质感 */
@@ -581,4 +570,12 @@ li:last-child {
     0% { transform: scale(1); }
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    clip: rect(0 0 0 0); clip-path: inset(50%);
+    overflow: hidden; white-space: nowrap;
 }
