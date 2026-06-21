@@ -90,5 +90,65 @@
 
   if (windows[0]) focusWindow(windows[0]);   // focus first window on load
 
+  /* ---- Traffic-light actions ---- */
+  function closeWindow(win) { win.classList.add('is-closed'); rebuildWindowMenu(); }
+  function openWindow(win) { win.classList.remove('is-closed', 'is-min'); focusWindow(win); rebuildWindowMenu(); }
+  function minimizeWindow(win) { win.classList.add('is-min'); rebuildWindowMenu(); }
+  function zoomWindow(win) {
+    if (!win.classList.contains('free')) freeWindow(win);
+    win.classList.toggle('zoomed');
+    focusWindow(win);
+  }
+
+  windows.forEach(win => {
+    win.querySelector('.light.close').addEventListener('click', (e) => { e.stopPropagation(); closeWindow(win); });
+    win.querySelector('.light.min').addEventListener('click',   (e) => { e.stopPropagation(); minimizeWindow(win); });
+    win.querySelector('.light.zoom').addEventListener('click',  (e) => { e.stopPropagation(); zoomWindow(win); });
+  });
+
+  /* ---- Menu bar: focus shortcuts + Window menu ---- */
+  document.querySelectorAll('.mb-item[data-focus]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const win = document.getElementById(btn.dataset.focus);
+      if (win) openWindow(win);
+    });
+  });
+
+  const winMenuBtn = document.querySelector('.mb-window-menu');
+  let winMenuList = null;
+  function rebuildWindowMenu() {
+    if (!winMenuList) return;
+    winMenuList.replaceChildren();
+    windows.forEach(win => {
+      const title = win.querySelector('.title').textContent;
+      const closed = win.classList.contains('is-closed');
+      const min = win.classList.contains('is-min');
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = title;
+      const stateSpan = document.createElement('span');
+      stateSpan.className = 'wm-state';
+      stateSpan.textContent = closed ? 'closed' : (min ? 'min' : 'open');
+      btn.append(nameSpan, stateSpan);
+      btn.addEventListener('click', () => { openWindow(win); toggleWinMenu(false); });
+      li.appendChild(btn);
+      winMenuList.appendChild(li);
+    });
+  }
+  function toggleWinMenu(force) {
+    const open = force !== undefined ? force : !winMenuList.classList.contains('open');
+    winMenuList.classList.toggle('open', open);
+    if (open) { winMenuList.style.left = winMenuBtn.getBoundingClientRect().left + 'px'; }
+  }
+  if (winMenuBtn) {
+    winMenuList = document.createElement('ul');
+    winMenuList.id = 'window-menu-list';
+    document.body.appendChild(winMenuList);
+    rebuildWindowMenu();
+    winMenuBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleWinMenu(); });
+    document.addEventListener('click', () => toggleWinMenu(false));
+  }
+
   window.__aqua = { desktop, windows, focusWindow, freeWindow };
 })();

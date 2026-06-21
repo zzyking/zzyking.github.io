@@ -178,3 +178,6 @@ body::before {
   opacity: 0; pointer-events: none; transition: opacity 0.12s ease;
 }
 .dock-item:hover::after { opacity: 1; }
+
+.window.is-closed { display: none; }
+.window.is-min { display: none; }   /* minimized: hidden from canvas, reachable via Window menu */
