@@ -10,91 +10,75 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/textures.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/desktop.css">
 </head>
 
 <body>
-  <main class="paper">
-        <header>
-          <h1>Zeyuan Zang <span class="name-cn">臧泽元</span></h1>
-      <div class="subtitle">
-        B.Eng. Student @ BUPT &nbsp • &nbsp Incoming Ph.D. @ ZGCA
+  <div id="menubar">
+    <span class="mb-apple" aria-hidden="true"></span>
+    <span class="mb-name">Zeyuan Zang</span>
+    <nav class="mb-menus" aria-label="Sections">
+      <button class="mb-item" data-focus="win-about">About</button>
+      <button class="mb-item" data-focus="win-pubs">Research</button>
+      <button class="mb-item" data-focus="win-projects">Projects</button>
+      <button class="mb-item mb-window-menu" aria-haspopup="true">Window &#9662;</button>
+    </nav>
+    <span class="mb-spacer"></span>
+    <span class="mb-clock" id="clock" aria-live="off">--:--</span>
+  </div>
+
+  <main id="desktop">
+
+    <section class="window" id="win-about" aria-labelledby="about-heading">
+      <div class="titlebar">
+        <span class="lights"><button class="light close" aria-label="Close About"></button><button class="light min" aria-label="Minimize About"></button><button class="light zoom" aria-label="Zoom About"></button></span>
+        <span class="title">About Me</span>
       </div>
-      <div class="contact-info" aria-label="Contact links">
-        <a class="contact-chip" href="mailto:zangzeyuan@bupt.edu.cn" aria-label="Email">
-          <span class="icon" aria-hidden="true">
-            <i class="fa-solid fa-envelope"></i>
-          </span>
-        </a>
-        <a class="contact-chip" href="https://github.com/zzyking" target="_blank" rel="noopener noreferrer"
-          aria-label="GitHub">
-          <span class="icon" aria-hidden="true">
-            <i class="fa-brands fa-github"></i>
-          </span>
-        </a>
-        <a class="contact-chip" href="https://scholar.google.com/citations?user=flMNVJcAAAAJ" target="_blank"
-          rel="noopener noreferrer" aria-label="Google Scholar">
-          <span class="icon" aria-hidden="true">
-            <i class="fa-brands fa-google-scholar"></i>
-          </span>
-        </a>
-        <a class="contact-chip" href="https://twitter.com/KingZang2" target="_blank" rel="noopener noreferrer"
-          aria-label="Twitter">
-          <span class="icon" aria-hidden="true">
-            <i class="fa-brands fa-x-twitter"></i>
-          </span>
-        </a>
-        <a class="contact-chip" href="https://www.linkedin.com/in/zeyuan-zang-958b67279/"
-          target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <span class="icon" aria-hidden="true">
-            <i class="fa-brands fa-linkedin-in"></i>
-          </span>
-        </a>
-        <a class="contact-chip" href="http://kingz.space/" target="_blank" rel="noopener noreferrer"
-          aria-label="Personal site: kingz.space">
-          <span class="icon" aria-hidden="true">
-            <svg class="kz-icon" viewBox="0 0 270 270" aria-hidden="true" focusable="false" fill="none">
-              <path d="M86.4004 11H183.6C198.902 11 209.718 11.0086 218.171 11.6992C226.495 12.3793 231.555 13.6656 235.521 15.6865C243.612 19.8091 250.191 26.3875 254.313 34.4785C256.334 38.445 257.621 43.5049 258.301 51.8291C258.991 60.2818 259 71.0977 259 86.4004V183.6C259 198.902 258.991 209.718 258.301 218.171C257.621 226.495 256.334 231.555 254.313 235.521C250.191 243.612 243.612 250.191 235.521 254.313C231.555 256.334 226.495 257.621 218.171 258.301C209.718 258.991 198.902 259 183.6 259H86.4004C71.0977 259 60.2818 258.991 51.8291 258.301C43.5049 257.621 38.445 256.334 34.4785 254.313C26.3875 250.191 19.8091 243.612 15.6865 235.521C13.6656 231.555 12.3793 226.495 11.6992 218.171C11.0086 209.718 11 198.902 11 183.6V86.4004C11 71.0977 11.0086 60.2818 11.6992 51.8291C12.3793 43.5049 13.6656 38.445 15.6865 34.4785C19.8091 26.3875 26.3875 19.8091 34.4785 15.6865C38.445 13.6656 43.5049 12.3793 51.8291 11.6992C60.2818 11.0086 71.0977 11 86.4004 11Z" stroke="currentColor" stroke-width="22" fill="none"/>
-              <path d="M203.662 47.4344C217.8 47.4336 227.119 62.0689 221.269 74.8378L202.651 105.951L202.597 106.043L202.544 106.135L180.255 145.067L142.078 210.32L139.519 214.469C132.965 225.089 117.979 226.277 109.834 216.821L109.764 216.74L109.693 216.66L52.7805 153.134C45.0224 144.474 45.7405 131.168 54.3854 123.393L54.5517 123.243L54.7121 123.087L107.474 71.5999C118.169 61.1636 122.303 57.2257 126.94 54.4383C131.278 51.8307 135.995 49.9104 140.921 48.7469C146.186 47.5032 151.895 47.4353 166.838 47.4353L194.5 47.4347L203.662 47.4344Z" stroke="currentColor" stroke-width="22" fill="none"/>
-            </svg>
-          </span>
-        </a>
+      <div class="window-body">
+        <h2 id="about-heading" class="visually-hidden">About Me</h2>
+        <p class="about-subtitle">B.Eng. Student @ BUPT &nbsp;&#8226;&nbsp; Incoming Ph.D. @ ZGCA</p>
+        <p>
+          I am a 4<sup>th</sup>-year undergraduate student majoring in Computer Science and Technology at the
+          <strong><a href="https://future.bupt.edu.cn/" target="_blank">School of Future</a>, Beijing University of Posts and Telecommunications (BUPT)</strong>, currently
+          conducting research on Large Vision-Language Models (LVLMs) at the Center of Intelligence Science and Technology
+          (CIST), advised by <strong>Prof. Xiaojie Wang</strong>.
+        </p>
+        <p style="margin-bottom: -5px">My current research interests include:</p>
+        <ul>
+          <li>Boosting reasoning abilities of Large Vision-Language Models (LVLMs)</li>
+          <li>Vision-Language representation learning</li>
+          <li>Novel architectures inspired by cognitive heuristics</li>
+          <li>Improving LVLMs' reliability with high-quality data</li>
+        </ul>
+        <p class="about-personal">
+          Outside the lab, I am a classical music enthusiast and enjoy tennis and golf.
+        </p>
       </div>
-    </header>
-
-    <section aria-labelledby="about-heading">
-      <h2 id="about-heading">About Me</h2>
-      <p>
-        I am a 4<sup>th</sup>-year undergraduate student majoring in Computer Science and Technology at the
-        <strong><a href="https://future.bupt.edu.cn/" target="_blank">School of Future</a>, Beijing University of Posts and Telecommunications (BUPT)</strong>, currently
-        conducting research on Large Vision-Language Models (LVLMs) at the Center of Intelligence Science and Technology
-        (CIST), advised by <strong>Prof. Xiaojie Wang</strong>.
-      </p>
-
-      <p style="margin-bottom: -5px">My current research interests include:</p>
-      <ul>
-        <li>Boosting reasoning abilities of Large Vision-Language Models (LVLMs)</li>
-        <li>Vision-Language representation learning</li>
-        <li>Novel architectures inspired by cognitive heuristics</li>
-        <li>Improving LVLMs' reliability with high-quality data</li>
-      </ul>
-
-      <p class="about-personal">
-        Outside the lab, I am a classical music enthusiast and enjoy tennis and golf.
-      </p>
     </section>
 
-    <section aria-labelledby="news-heading">
-      <h2 id="news-heading">News</h2>
-      <ul class="news">
-        <li><span class="news-date">2026.01</span> <span class="news-text">Joined <a href="https://www.bjzgca.edu.cn/en/" target="_blank">Zhongguancun Academy</a> as a research intern, working on multimodal post-training data synthesis for physics.</span></li>
-        <li><span class="news-date">2025.09</span> <span class="news-text">Admitted to the direct Ph.D. program at <a href="https://www.bjzgca.edu.cn/en/" target="_blank">Zhongguancun Academy</a>.</span></li>
-        <li><span class="news-date">2025.09</span> <span class="news-text"><em>Reading Images Like Texts</em> accepted to <strong>ICLR 2026</strong>.</span></li>
-        <li><span class="news-date">2025.07</span> <span class="news-text"><em>VL-DynaRefine</em> accepted to <strong>ACM MM 2025</strong>; HADAR on display at WSIS+20 &amp; AI for Good Summit, Geneva.</span></li>
-      </ul>
+    <section class="window" id="win-news" aria-labelledby="news-heading">
+      <div class="titlebar">
+        <span class="lights"><button class="light close" aria-label="Close News"></button><button class="light min" aria-label="Minimize News"></button><button class="light zoom" aria-label="Zoom News"></button></span>
+        <span class="title">News</span>
+      </div>
+      <div class="window-body">
+        <h2 id="news-heading" class="visually-hidden">News</h2>
+        <ul class="news">
+          <li><span class="news-date">2026.01</span> <span class="news-text">Joined <a href="https://www.bjzgca.edu.cn/en/" target="_blank">Zhongguancun Academy</a> as a research intern, working on multimodal post-training data synthesis for physics.</span></li>
+          <li><span class="news-date">2025.09</span> <span class="news-text">Admitted to the direct Ph.D. program at <a href="https://www.bjzgca.edu.cn/en/" target="_blank">Zhongguancun Academy</a>.</span></li>
+          <li><span class="news-date">2025.09</span> <span class="news-text"><em>Reading Images Like Texts</em> accepted to <strong>ICLR 2026</strong>.</span></li>
+          <li><span class="news-date">2025.07</span> <span class="news-text"><em>VL-DynaRefine</em> accepted to <strong>ACM MM 2025</strong>; HADAR on display at WSIS+20 &amp; AI for Good Summit, Geneva.</span></li>
+        </ul>
+      </div>
     </section>
 
-    <section aria-labelledby="publications-heading">
-      <h2 id="publications-heading">Research & Publications</h2>
+    <section class="window" id="win-pubs" aria-labelledby="publications-heading">
+      <div class="titlebar">
+        <span class="lights"><button class="light close" aria-label="Close Research &amp; Publications"></button><button class="light min" aria-label="Minimize Research &amp; Publications"></button><button class="light zoom" aria-label="Zoom Research &amp; Publications"></button></span>
+        <span class="title">Research &amp; Publications</span>
+      </div>
+      <div class="window-body">
+        <h2 id="publications-heading" class="visually-hidden">Research &amp; Publications</h2>
 
       <!-- <article class="entry">
         <span class="entry-title">ReVision: Reviser on Vision for Mitigating Hallucination in LVLMs</span>
@@ -150,7 +134,7 @@
       </article>
 
       <article class="entry">
-        <span class="entry-title">“Future Scholar” Project, School of Future, BUPT</span>
+        <span class="entry-title">"Future Scholar" Project, School of Future, BUPT</span>
         <div class="entry-meta">
           Principal Investigator · Project No. 2024WLXZ06 · 2024.09 - 2025.08 · Rate: <em>Excellent</em>
         </div>
@@ -159,10 +143,16 @@
           <li>Organized and executed the project, leading method design, implementation, and evaluation.</li>
         </ul>
       </article>
+      </div>
     </section>
 
-    <section aria-labelledby="experience-heading">
-      <h2 id="experience-heading">Research Experience</h2>
+    <section class="window" id="win-experience" aria-labelledby="experience-heading">
+      <div class="titlebar">
+        <span class="lights"><button class="light close" aria-label="Close Research Experience"></button><button class="light min" aria-label="Minimize Research Experience"></button><button class="light zoom" aria-label="Zoom Research Experience"></button></span>
+        <span class="title">Research Experience</span>
+      </div>
+      <div class="window-body">
+        <h2 id="experience-heading" class="visually-hidden">Research Experience</h2>
 
       <article class="entry">
         <span class="entry-title">Zhongguancun Academy</span>
@@ -207,7 +197,7 @@
       </article>
 
       <article class="entry">
-        <span class="entry-title">Dept. of Brain Cognition & Intelligent Medicine, BUPT</span>
+        <span class="entry-title">Dept. of Brain Cognition &amp; Intelligent Medicine, BUPT</span>
         <div class="entry-meta">
           Research Intern · 2022.10 - 2023.09
         </div>
@@ -215,10 +205,16 @@
           <li>Gesture recognition from vision and somatosensory data; BCI- and VR-based rehabilitation robotics.</li>
         </ul>
       </article>
+      </div>
     </section>
 
-    <section aria-labelledby="projects-heading">
-      <h2 id="projects-heading">Selected Projects</h2>
+    <section class="window" id="win-projects" aria-labelledby="projects-heading">
+      <div class="titlebar">
+        <span class="lights"><button class="light close" aria-label="Close Selected Projects"></button><button class="light min" aria-label="Minimize Selected Projects"></button><button class="light zoom" aria-label="Zoom Selected Projects"></button></span>
+        <span class="title">Selected Projects</span>
+      </div>
+      <div class="window-body">
+        <h2 id="projects-heading" class="visually-hidden">Selected Projects</h2>
       <article class="entry">
         <span class="entry-title">Deepreader: Agentic Document Reading Toolkit
           <span class="tag-soft">under development</span>
@@ -255,10 +251,16 @@
           A multimodal digital human interaction frontend application based on React + TypeScript + WebRTC, supporting speech, gesture, facial expression recognition, and real-time conversation features.
         </p>
       </article>
+      </div>
     </section>
 
-    <section aria-labelledby="education-heading">
-      <h2 id="education-heading">Education</h2>
+    <section class="window" id="win-education" aria-labelledby="education-heading">
+      <div class="titlebar">
+        <span class="lights"><button class="light close" aria-label="Close Education"></button><button class="light min" aria-label="Minimize Education"></button><button class="light zoom" aria-label="Zoom Education"></button></span>
+        <span class="title">Education</span>
+      </div>
+      <div class="window-body">
+        <h2 id="education-heading" class="visually-hidden">Education</h2>
       <article class="entry">
         <span class="entry-title">Beijing University of Posts and Telecommunications</span>
         <div class="entry-meta">
@@ -277,10 +279,17 @@
         <p>
           Graduated at 16.
         </p>
+      </article>
+      </div>
     </section>
 
-    <section aria-labelledby="tech-heading">
-      <h2 id="tech-heading">Tech Stack</h2>
+    <section class="window" id="win-tech" aria-labelledby="tech-heading">
+      <div class="titlebar">
+        <span class="lights"><button class="light close" aria-label="Close Tech Stack"></button><button class="light min" aria-label="Minimize Tech Stack"></button><button class="light zoom" aria-label="Zoom Tech Stack"></button></span>
+        <span class="title">Tech Stack</span>
+      </div>
+      <div class="window-body">
+        <h2 id="tech-heading" class="visually-hidden">Tech Stack</h2>
       <div class="skills-grid">
         <!-- 使用 skillicons.dev 的图标 -->
 
@@ -372,30 +381,32 @@
           <img src="images/icon-opencode.svg" alt="OpenCode" loading="lazy">
         </div>
       </div>
+      </div>
     </section>
-    <footer class="vintage-footer">
-      <p>© 2026 Zeyuan Zang</p>
-      <p class="tribute">
-        Built with <span class="heart">♥</span> and nostalgia for <span class="skeuo">old-time <span
-            class="apple-logo"></span></span>.
-      </p>
-    </footer>
+
   </main>
 
+  <nav id="dock" aria-label="Links">
+    <a class="dock-item" href="mailto:zangzeyuan@bupt.edu.cn" data-label="Email"><i class="fa-solid fa-envelope"></i></a>
+    <a class="dock-item" href="https://github.com/zzyking" target="_blank" rel="noopener noreferrer" data-label="GitHub"><i class="fa-brands fa-github"></i></a>
+    <a class="dock-item" href="https://scholar.google.com/citations?user=flMNVJcAAAAJ" target="_blank" rel="noopener noreferrer" data-label="Scholar"><i class="fa-brands fa-google-scholar"></i></a>
+    <a class="dock-item" href="https://twitter.com/KingZang2" target="_blank" rel="noopener noreferrer" data-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+    <a class="dock-item" href="https://www.linkedin.com/in/zeyuan-zang-958b67279/" target="_blank" rel="noopener noreferrer" data-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a class="dock-item" href="http://kingz.space/" target="_blank" rel="noopener noreferrer" data-label="kingz.space">
+      <svg class="kz-icon" viewBox="0 0 270 270" fill="none" aria-hidden="true"><path d="M86.4004 11H183.6C198.902 11 209.718 11.0086 218.171 11.6992C226.495 12.3793 231.555 13.6656 235.521 15.6865C243.612 19.8091 250.191 26.3875 254.313 34.4785C256.334 38.445 257.621 43.5049 258.301 51.8291C258.991 60.2818 259 71.0977 259 86.4004V183.6C259 198.902 258.991 209.718 258.301 218.171C257.621 226.495 256.334 231.555 254.313 235.521C250.191 243.612 243.612 250.191 235.521 254.313C231.555 256.334 226.495 257.621 218.171 258.301C209.718 258.991 198.902 259 183.6 259H86.4004C71.0977 259 60.2818 258.991 51.8291 258.301C43.5049 257.621 38.445 256.334 34.4785 254.313C26.3875 250.191 19.8091 243.612 15.6865 235.521C13.6656 231.555 12.3793 226.495 11.6992 218.171C11.0086 209.718 11 198.902 11 183.6V86.4004C11 71.0977 11.0086 60.2818 11.6992 51.8291C12.3793 43.5049 13.6656 38.445 15.6865 34.4785C19.8091 26.3875 26.3875 19.8091 34.4785 15.6865C38.445 13.6656 43.5049 12.3793 51.8291 11.6992C60.2818 11.0086 71.0977 11 86.4004 11Z" stroke="currentColor" stroke-width="22"/><path d="M203.662 47.4344C217.8 47.4336 227.119 62.0689 221.269 74.8378L202.651 105.951L202.544 106.135L180.255 145.067L142.078 210.32L139.519 214.469C132.965 225.089 117.979 226.277 109.834 216.821L109.693 216.66L52.7805 153.134C45.0224 144.474 45.7405 131.168 54.3854 123.393L54.5517 123.243L107.474 71.5999C118.169 61.1636 122.303 57.2257 126.94 54.4383C131.278 51.8307 135.995 49.9104 140.921 48.7469C146.186 47.5032 151.895 47.4353 166.838 47.4353L194.5 47.4347L203.662 47.4344Z" stroke="currentColor" stroke-width="22"/></svg>
+    </a>
+  </nav>
+
+  <script src="js/desktop.js"></script>
   <script>
     (function () {
       var endpoint = "https://zzyking-visit-log.zangking001.workers.dev/img/p";
-      var params = new URLSearchParams({
-        path: window.location.pathname,
-        ref: document.referrer || "",
-        ts: String(Date.now())
-      });
+      var params = new URLSearchParams({ path: window.location.pathname, ref: document.referrer || "", ts: String(Date.now()) });
       var img = new Image();
       img.src = endpoint + "?" + params.toString();
       window.__visitPing = img;
     })();
   </script>
-
 </body>
 
 </html>
