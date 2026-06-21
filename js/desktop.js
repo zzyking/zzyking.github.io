@@ -77,6 +77,7 @@
         originLeft: parseFloat(win.style.left) || 0,
         originTop: parseFloat(win.style.top) || 0,
         maxLeft: desktop.clientWidth - win.offsetWidth,
+        maxTop: desktop.clientHeight - win.offsetHeight,
       };
       win.classList.add('dragging');
       bar.setPointerCapture(e.pointerId);
@@ -86,7 +87,7 @@
       let nl = dragState.originLeft + (e.clientX - dragState.startX);
       let nt = dragState.originTop + (e.clientY - dragState.startY);
       nl = Math.max(0, Math.min(nl, Math.max(0, dragState.maxLeft)));
-      nt = Math.max(0, nt);
+      nt = Math.max(0, Math.min(nt, Math.max(0, dragState.maxTop)));
       win.style.left = nl + 'px';
       win.style.top = nt + 'px';
     });
@@ -104,7 +105,19 @@
 
   /* ---- Traffic-light actions ---- */
   function closeWindow(win) { win.classList.add('is-closed'); rebuildWindowMenu(); }
-  function openWindow(win) { win.classList.remove('is-closed', 'is-min'); focusWindow(win); rebuildWindowMenu(); }
+  function openWindow(win) {
+    win.classList.remove('is-closed', 'is-min');
+    if (win.classList.contains('free')) {
+      const maxLeft = Math.max(0, desktop.clientWidth - win.offsetWidth);
+      const maxTop = Math.max(0, desktop.clientHeight - win.offsetHeight);
+      const curLeft = parseFloat(win.style.left) || 0;
+      const curTop = parseFloat(win.style.top) || 0;
+      win.style.left = Math.max(0, Math.min(curLeft, maxLeft)) + 'px';
+      win.style.top = Math.max(0, Math.min(curTop, maxTop)) + 'px';
+    }
+    focusWindow(win);
+    rebuildWindowMenu();
+  }
   function minimizeWindow(win) { win.classList.add('is-min'); rebuildWindowMenu(); }
   function zoomWindow(win) {
     if (!win.classList.contains('free')) freeWindow(win);
