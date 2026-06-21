@@ -51,6 +51,18 @@
   let dragState = null;
   function isDraggable() { return window.matchMedia('(min-width: 821px)').matches; }
 
+  // Below the breakpoint, collapse any freed windows back to flow.
+  function syncResponsive() {
+    if (!isDraggable()) {
+      windows.forEach(w => {
+        w.classList.remove('free', 'zoomed', 'dragging');
+        w.style.left = w.style.top = w.style.zIndex = '';
+      });
+    }
+  }
+  window.addEventListener('resize', syncResponsive);
+  syncResponsive();
+
   windows.forEach(win => {
     const bar = win.querySelector('.titlebar');
     bar.addEventListener('pointerdown', (e) => {
