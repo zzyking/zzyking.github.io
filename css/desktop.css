@@ -82,7 +82,7 @@ body::before {
 }
 
 /* Traffic lights */
-.lights { position: relative; z-index: 1; display: inline-flex; gap: 8px; }
+.lights { position: relative; z-index: 1; display: inline-flex; gap: 4px; }
 .light {
   width: 12px; height: 12px; padding: 0; border-radius: 50%;
   border: 1px solid rgba(0,0,0,0.4);
