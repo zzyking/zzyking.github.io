@@ -315,11 +315,15 @@
     let ro_t;
     const ro = new ResizeObserver((entries) => {
       if (dragState) return;                 // don't fight an active drag
-      // Ignore the 0x0 collapse from close/minimize (display:none) — those must
-      // leave a hole, not repack. Only a window still on the canvas changing
-      // height should re-stack its column.
-      const live = entries.some(e =>
-        !e.target.classList.contains('is-closed') && !e.target.classList.contains('is-min'));
+      // Only a window resting in its column should re-stack. Ignore size
+      // changes we caused ourselves — the 0x0 collapse from close/minimize
+      // (must leave a hole, not repack) and the width change from zoom/drag
+      // (must persist, not snap back to the column).
+      const live = entries.some(e => {
+        const c = e.target.classList;
+        return !c.contains('is-closed') && !c.contains('is-min')
+            && !c.contains('zoomed') && !c.contains('dragging');
+      });
       if (!live) return;
       clearTimeout(ro_t);
       ro_t = setTimeout(() => { if (!dragState) refresh(); }, 150);
