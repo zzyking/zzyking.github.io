@@ -51,6 +51,17 @@
     delete win.dataset.placed;
   }
 
+  // Last frozen height per window, so a later content change can be applied as
+  // an incremental shift (push the windows below it down) instead of a full
+  // re-tile that would repack everything.
+  const winHeights = new Map();
+  function snapshotHeights() {
+    windows.forEach(w => {
+      if (w.classList.contains('is-closed') || w.classList.contains('is-min')) winHeights.delete(w);
+      else winHeights.set(w, w.offsetHeight);
+    });
+  }
+
   function layoutDesktop() {
     if (!isDesktopMode()) {
       windows.forEach(unfreeze);
@@ -107,6 +118,45 @@
     });
     // Placed (floating) windows still count toward the canvas height.
     live.filter(w => w.dataset.placed).forEach(w => {
+      maxBottom = Math.max(maxBottom, (parseFloat(w.style.top) || 0) + w.offsetHeight);
+    });
+    desktop.style.height = (maxBottom + 24) + 'px';
+    snapshotHeights();
+  }
+
+  /* ---- Incremental reflow: when a window's height changes after layout, push
+         only the windows below it in the same column by the delta. Nothing else
+         moves — no repack, no hole-filling. This keeps a grown window (e.g. an
+         extension injecting badges) from crowding the one beneath it while
+         leaving every other window exactly where it was. ---- */
+  function reflowHeights() {
+    if (!isDesktopMode() || desktop.classList.contains('booting')) return;
+    const auto = windows.filter(w =>
+      w.classList.contains('free') && !w.dataset.placed &&
+      !w.classList.contains('is-closed') && !w.classList.contains('is-min'));
+    let changed = false;
+    auto.forEach(w => {
+      const now = w.offsetHeight;
+      const prev = winHeights.get(w);
+      winHeights.set(w, now);
+      if (prev === undefined) return;            // first sighting: just seed
+      const delta = now - prev;
+      if (Math.abs(delta) < 0.5) return;
+      changed = true;
+      const key = Math.round(parseFloat(w.style.left) || 0);
+      const wTop = parseFloat(w.style.top) || 0;
+      auto.forEach(o => {
+        if (o === w) return;
+        if (Math.round(parseFloat(o.style.left) || 0) !== key) return;   // same column
+        const oTop = parseFloat(o.style.top) || 0;
+        if (oTop > wTop) o.style.top = (oTop + delta) + 'px';            // below: make room
+      });
+    });
+    if (!changed) return;
+    let maxBottom = 0;
+    windows.forEach(w => {
+      if (!w.classList.contains('free')) return;
+      if (w.classList.contains('is-closed') || w.classList.contains('is-min')) return;
       maxBottom = Math.max(maxBottom, (parseFloat(w.style.top) || 0) + w.offsetHeight);
     });
     desktop.style.height = (maxBottom + 24) + 'px';
@@ -337,7 +387,7 @@
       });
       if (!live) return;
       clearTimeout(ro_t);
-      ro_t = setTimeout(() => { if (!dragState) refresh(); }, 150);
+      ro_t = setTimeout(() => { if (!dragState) reflowHeights(); }, 150);
     });
     windows.forEach(w => ro.observe(w));
   }
