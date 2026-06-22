@@ -54,6 +54,10 @@ body::before {
 
 .window-body { padding: 16px 20px 20px; }
 .window-body > :first-child { margin-top: 0; }
+/* The real first child is a visually-hidden <h2>; zero the top margin of the
+   first *visible* block so every window's titlebar-to-content gap is 16px
+   (otherwise Tech's .skills-grid margin-top makes it 26px). */
+.window-body > .visually-hidden + * { margin-top: 0; }
 .window-body .about-subtitle {
   margin: 0 0 12px; text-align: center; font-style: italic;
   color: var(--text-meta); font-family: "Georgia", serif;

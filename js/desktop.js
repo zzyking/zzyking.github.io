@@ -69,14 +69,36 @@
       return { w, left: r.left - dRect.left, top: r.top - dRect.top, width: r.width, height: r.height };
     });
 
-    // Pass 2: freeze them all to those coordinates.
-    let maxBottom = 0;
+    // Pass 2: freeze geometry (width + left), grouping windows by column.
+    // CSS multi-column balancing leaves uneven gaps between stacked windows
+    // (e.g. 22px in a full column, ~40px in a shorter one), so we re-stack
+    // each column to a uniform gap below.
+    const GAP = 22;
+    const cols = new Map();
     measures.forEach(m => {
       m.w.classList.add('free');
       m.w.style.left = m.left + 'px';
-      m.w.style.top = m.top + 'px';
       m.w.style.width = m.width + 'px';
-      maxBottom = Math.max(maxBottom, m.top + m.height);
+      m.w.style.top = m.top + 'px';
+      const key = Math.round(m.left);
+      if (!cols.has(key)) cols.set(key, []);
+      cols.get(key).push(m);
+    });
+
+    // Pass 3: re-stack each column using the real frozen heights. Reading
+    // offsetHeight after the width is pinned gives the true rendered height,
+    // so every inter-window gap lands at exactly GAP (the natural-flow
+    // heights can disagree with the frozen render and skew the spacing).
+    let maxBottom = 0;
+    cols.forEach(list => {
+      list.sort((a, b) => a.top - b.top);
+      let cursor = null;                       // bottom of the previous window
+      list.forEach(m => {
+        const top = cursor === null ? m.top : cursor + GAP;
+        m.w.style.top = top + 'px';
+        cursor = top + m.w.offsetHeight;
+        maxBottom = Math.max(maxBottom, cursor);
+      });
     });
     desktop.style.height = (maxBottom + 24) + 'px';
   }
