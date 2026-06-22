@@ -206,7 +206,12 @@
 
   /* ---- Dock: minimized-window tiles ---- */
   function updateDockSep() {
-    if (dockSep && dockMin) dockSep.style.display = dockMin.children.length ? '' : 'none';
+    // Hide both the divider and the (empty) minimized area when there's nothing
+    // minimized — otherwise the empty area's flex gap makes the dock's right
+    // padding wider than its left.
+    const has = dockMin && dockMin.children.length > 0;
+    if (dockSep) dockSep.style.display = has ? '' : 'none';
+    if (dockMin) dockMin.style.display = has ? '' : 'none';
   }
   function addDockTile(win) {
     if (!dockMin || dockMin.querySelector('[data-win="' + win.id + '"]')) return;
@@ -218,7 +223,7 @@
     btn.setAttribute('aria-label', 'Restore ' + title);
     const text = document.createElement('span');
     text.className = 'dml-text';
-    text.textContent = title;
+    text.textContent = (title.trim().charAt(0) || '?').toUpperCase();   // square tile shows the initial
     btn.appendChild(text);
     btn.addEventListener('click', () => openWindow(win));
     dockMin.appendChild(btn);
@@ -347,6 +352,7 @@
   let revealed = false;
   function reveal() { if (revealed) return; revealed = true; desktop.classList.remove('booting'); }
 
+  updateDockSep();        // hide the empty minimized area so dock padding is symmetric
   refresh();
   if (windows[0]) focusWindow(windows[0]);
 
