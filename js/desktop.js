@@ -276,11 +276,30 @@
 
   /* ---- Init + re-layout triggers ---- */
   function refresh() { layoutDesktop(); syncMenu(); }
+
+  // Hide the canvas while booting: the serif body font loads with
+  // `font-display: swap`, so the page first paints with fallback metrics
+  // (different window heights) and our absolute pins briefly mismatch it
+  // — e.g. a taller window above overlapping the one below. We lay out once
+  // now, then again once the real fonts are applied, and only then reveal.
+  desktop.classList.add('booting');
+  let revealed = false;
+  function reveal() { if (revealed) return; revealed = true; desktop.classList.remove('booting'); }
+
   refresh();
   if (windows[0]) focusWindow(windows[0]);
 
+  // Authoritative layout + reveal happen once the real fonts are in.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { refresh(); reveal(); });
+  } else {
+    refresh(); reveal();
+  }
+  // Re-layout on full load (late images, cached fonts) without gating reveal on it.
   window.addEventListener('load', refresh);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+  // Safety net: never stay hidden if the fonts promise stalls.
+  setTimeout(() => { refresh(); reveal(); }, 1500);
+
   let rt;
   window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(refresh, 120); });
 

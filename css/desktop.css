@@ -29,7 +29,12 @@ body::before {
   margin: 0 auto;
   padding: calc(var(--mb-h) + 22px) 22px calc(var(--dock-h) + 22px);
   box-sizing: border-box;
+  transition: opacity 0.2s ease;
 }
+/* During boot we hide the canvas until the web fonts are applied and the
+   final layout is frozen, so the font-swap reflow is never visible. The class
+   is added by JS, so without JS the desktop stays visible and readable. */
+#desktop.booting { opacity: 0; }
 
 /* Window box */
 .window {
