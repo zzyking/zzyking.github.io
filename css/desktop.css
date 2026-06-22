@@ -81,28 +81,44 @@ body::before {
   pointer-events: none;
 }
 
-/* Traffic lights */
-.lights { position: relative; z-index: 1; display: inline-flex; gap: 4px; }
+/* Traffic lights — Aqua water-drop gels. Optical structure:
+   a dark refractive rim around the edge, a strong specular highlight in the
+   top ~20%, and a broad colored back-reflection across the bottom ~50%,
+   over a saturated spherical body. */
+.lights { position: relative; z-index: 1; display: inline-flex; gap: 7px; }
 .light {
+  position: relative;
   width: 12px; height: 12px; padding: 0; border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.4);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 1px 1px rgba(0,0,0,0.2);
-  cursor: pointer; background-position: center;
+  border: 0.5px solid var(--rim);
+  background:
+    radial-gradient(ellipse 82% 50% at 50% 98%, var(--reflect) 0%, rgba(255,255,255,0) 62%),
+    radial-gradient(circle at 50% 40%, var(--c-top) 0%, var(--c-mid) 50%, var(--c-bot) 100%);
+  box-shadow:
+    inset 0 0 2px 0.5px rgba(0,0,0,0.42),   /* dark water-drop edge */
+    0 1px 1px rgba(0,0,0,0.3);              /* drop shadow */
+  cursor: pointer;
 }
-.light.close { background: radial-gradient(circle at 35% 30%, #ff9a93, #e0463b 70%); }
-.light.min   { background: radial-gradient(circle at 35% 30%, #ffd479, #e0a02a 70%); }
-.light.zoom  { background: radial-gradient(circle at 35% 30%, #9fe88a, #3da12f 70%); }
+/* strong specular highlight occupying the top ~20% */
+.light::before {
+  content: "";
+  position: absolute; top: 1px; left: 50%; transform: translateX(-50%);
+  width: 7px; height: 3px; border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.12) 78%);
+  pointer-events: none;
+}
+.light.close { --c-top: #ff8d82; --c-mid: #ec4133; --c-bot: #c0301f; --reflect: rgba(255,162,150,0.88); --rim: rgba(108,20,13,0.6); }
+.light.min   { --c-top: #ffdd76; --c-mid: #f3ad1c; --c-bot: #c47f08; --reflect: rgba(255,216,112,0.88); --rim: rgba(114,74,6,0.55); }
+.light.zoom  { --c-top: #bced7a; --c-mid: #5cc233; --c-bot: #348d1e; --reflect: rgba(166,232,122,0.88); --rim: rgba(28,86,13,0.55); }
 .light:focus-visible { outline: 2px solid rgba(255,255,255,0.9); outline-offset: 1px; }
 
 /* Inactive window: desaturate title bar + dim lights */
 .window:not(.active) .titlebar { background: linear-gradient(to bottom, #eee, #dcdcdc); }
-.window:not(.active) .light { filter: saturate(0.25) opacity(0.7); }
+.window:not(.active) .light { filter: saturate(0.32) brightness(1.04) opacity(0.72); }
+.window:not(.active) .light::before { opacity: 0.65; }
 
 /* Active window lift */
 .window.active { box-shadow: 0 16px 40px rgba(0,0,0,0.45), 0 3px 10px rgba(0,0,0,0.3); }
 
-/* Zoomed window: wider when freed */
-.window.zoomed.free { width: min(680px, 90vw); }
 
 /* Menu bar */
 #menubar {
@@ -116,13 +132,21 @@ body::before {
   border-bottom: 1px solid rgba(0,0,0,0.25);
   box-shadow: 0 1px 0 rgba(255,255,255,0.7);
 }
-.mb-apple { font-family: -apple-system, "Helvetica Neue", sans-serif; font-size: 15px; }
-.mb-name { font-weight: 700; }
-.mb-menus { display: flex; gap: 4px; }
-.mb-item { font: inherit; color: inherit; background: none; border: 0; padding: 2px 8px; border-radius: 4px; cursor: pointer; }
+/* Menu-bar items keep their natural width (no flex shrink) so that when they
+   stop fitting they truly overflow — which is how JS detects "constrained". */
+.mb-apple { font-family: -apple-system, "Helvetica Neue", sans-serif; font-size: 15px; flex: 0 0 auto; }
+.mb-name { font-weight: 700; flex: 0 0 auto; }
+.mb-menus { display: flex; gap: 4px; flex: 0 0 auto; }
+.mb-item { font: inherit; color: inherit; background: none; border: 0; padding: 2px 8px; border-radius: 4px; cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
 .mb-item:hover { background: #3b73ff; color: #fff; }
-.mb-spacer { flex: 1; }
-.mb-clock { font-variant-numeric: tabular-nums; }
+.mb-spacer { flex: 1 1 0; min-width: 0; }
+.mb-clock { font-variant-numeric: tabular-nums; flex: 0 0 auto; white-space: nowrap; }
+
+/* Inline sections fill the bar; the Window dropdown only appears when the
+   bar runs out of room (#menubar.collapsed, toggled by JS overflow check). */
+.mb-window-menu { display: none; }
+#menubar.collapsed .mb-item[data-focus] { display: none; }
+#menubar.collapsed .mb-window-menu { display: inline-block; }
 
 /* Window menu dropdown */
 .mb-window-menu { position: relative; }
@@ -179,6 +203,38 @@ body::before {
 }
 .dock-item:hover::after { opacity: 1; }
 
+/* Dock: minimized-window area (right of a divider) */
+.dock-sep {
+  width: 1px; align-self: stretch; margin: 2px 4px;
+  background: rgba(0,0,0,0.18);
+  box-shadow: 1px 0 0 rgba(255,255,255,0.6);
+}
+.dock-min { display: flex; align-items: flex-end; gap: 8px; }
+.dock-min-item {
+  position: relative; height: 44px; max-width: 104px;
+  display: flex; align-items: center; padding: 0 11px;
+  font-family: "Lucida Grande", -apple-system, "Helvetica Neue", sans-serif;
+  font-size: 11px; color: #1b3a6b; text-decoration: none;
+  border: 1px solid rgba(0,0,0,0.12); border-radius: 11px;
+  background: linear-gradient(to bottom, #ffffff, #dfe7f2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,0,0,0.25);
+  cursor: pointer;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+.dock-min-item .dml-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dock-min-item:hover {
+  transform: translateY(-10px) scale(1.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 8px 16px rgba(0,0,0,0.3);
+}
+.dock-min-item::after {
+  content: attr(data-label);
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  padding: 2px 8px; font-family: "Lucida Grande", -apple-system, sans-serif; font-size: 11px;
+  color: #fff; background: rgba(0,0,0,0.75); border-radius: 5px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity 0.12s ease;
+}
+.dock-min-item:hover::after { opacity: 1; }
+
 .window.is-closed { display: none; }
 .window.is-min { display: none; }   /* minimized: hidden from canvas, reachable via Window menu */
 
@@ -196,9 +252,10 @@ body::before {
   }
   .window.zoomed.free { width: auto !important; }
   .titlebar { cursor: default; }
-  #menubar .mb-menus { display: none; }     /* name + clock only */
-  #dock { gap: 6px; padding: 6px 8px; bottom: 8px; }
+  #dock { gap: 6px; padding: 6px 8px; bottom: 8px; flex-wrap: wrap; justify-content: center; }
   .dock-item { width: 38px; height: 38px; }
   .dock-item i { font-size: 19px; }
   .dock-item:hover { transform: none; }     /* no magnify on touch */
+  .dock-min-item { height: 38px; max-width: 88px; }
+  .dock-min-item:hover { transform: none; }
 }

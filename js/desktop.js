@@ -3,81 +3,102 @@
   const desktop = document.getElementById('desktop');
   if (!desktop) return;
 
-  /* ---- Clock ---- */
+  const windows = Array.from(desktop.querySelectorAll('.window'));
+  const menubar = document.getElementById('menubar');
+  const dockMin = document.getElementById('dock-min');
+  const dockSep = document.getElementById('dock-sep');
+
+  /* ---- Clock (minute-aligned) ---- */
   const clockEl = document.getElementById('clock');
   function tickClock() {
     if (!clockEl) return;
     const d = new Date();
-    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let h = d.getHours();
     const ampm = h >= 12 ? 'PM' : 'AM';
     h = h % 12; if (h === 0) h = 12;
     const m = String(d.getMinutes()).padStart(2, '0');
     clockEl.textContent = days[d.getDay()] + ' ' + h + ':' + m + ' ' + ampm;
   }
-  tickClock();
-  setInterval(tickClock, 10000);
+  function loopClock() {
+    tickClock();
+    const now = new Date();
+    const ms = (60 - now.getSeconds()) * 1000 - now.getMilliseconds() + 30;
+    setTimeout(loopClock, Math.max(1000, ms));
+  }
+  loopClock();
 
-  /* ---- Window manager (focus / z-order) ---- */
-  const windows = Array.from(desktop.querySelectorAll('.window'));
+  /* ---- Mode guard ---- */
+  const mq = window.matchMedia('(min-width: 821px)');
+  function isDesktopMode() { return mq.matches; }
+
+  /* ---- Focus / z-order ---- */
   let zTop = 10;
-
   function focusWindow(win) {
     windows.forEach(w => w.classList.remove('active'));
     win.classList.add('active');
     zTop += 1;
-    win.style.setProperty('--z', zTop);
-    if (win.classList.contains('free')) win.style.zIndex = zTop;
+    win.style.zIndex = zTop;
   }
 
-  // free a column-flow window into absolute positioning at its current spot
-  function freeWindow(win) {
-    if (win.classList.contains('free')) return;
-    const dRect = desktop.getBoundingClientRect();
-    const wRect = win.getBoundingClientRect();
-    const left = wRect.left - dRect.left + desktop.scrollLeft;
-    const top = wRect.top - dRect.top + desktop.scrollTop;
-    win.style.setProperty('--w', wRect.width + 'px');
-    win.classList.add('free');
-    win.style.left = left + 'px';
-    win.style.top = top + 'px';
+  /* ---- Layout engine: measure column flow, then freeze to absolute ----
+     This turns the masonry into a real desktop: once frozen, closing or
+     minimizing a window leaves a hole instead of repacking the others. */
+  function unfreeze(win) {
+    win.classList.remove('free', 'zoomed', 'dragging');
+    win.style.left = win.style.top = win.style.width = win.style.zIndex = '';
+    delete win.dataset.w0;
   }
 
-  windows.forEach(win => {
-    win.addEventListener('mousedown', () => focusWindow(win), true);
-  });
-
-  /* ---- Drag controller (Pointer Events) ---- */
-  let dragState = null;
-  function isDraggable() { return window.matchMedia('(min-width: 821px)').matches; }
-
-  // Below the breakpoint, collapse any freed windows back to flow.
-  function syncResponsive() {
-    if (!isDraggable()) {
-      windows.forEach(w => {
-        w.classList.remove('free', 'zoomed', 'dragging');
-        w.style.left = w.style.top = w.style.zIndex = '';
-      });
+  function layoutDesktop() {
+    if (!isDesktopMode()) {
+      windows.forEach(unfreeze);
+      desktop.style.height = '';
+      return;
     }
-  }
-  window.addEventListener('resize', syncResponsive);
-  syncResponsive();
+    // Only (re)tile windows that are currently on the canvas.
+    const live = windows.filter(w =>
+      !w.classList.contains('is-closed') && !w.classList.contains('is-min'));
+    live.forEach(unfreeze);
+    desktop.style.height = '';
 
+    // Pass 1: measure every window's natural column-flow rect.
+    const dRect = desktop.getBoundingClientRect();
+    const measures = live.map(w => {
+      const r = w.getBoundingClientRect();
+      return { w, left: r.left - dRect.left, top: r.top - dRect.top, width: r.width, height: r.height };
+    });
+
+    // Pass 2: freeze them all to those coordinates.
+    let maxBottom = 0;
+    measures.forEach(m => {
+      m.w.classList.add('free');
+      m.w.style.left = m.left + 'px';
+      m.w.style.top = m.top + 'px';
+      m.w.style.width = m.width + 'px';
+      maxBottom = Math.max(maxBottom, m.top + m.height);
+    });
+    desktop.style.height = (maxBottom + 24) + 'px';
+  }
+
+  /* ---- Drag (Pointer Events) ---- */
+  let dragState = null;
   windows.forEach(win => {
+    win.addEventListener('pointerdown', () => focusWindow(win));
+
     const bar = win.querySelector('.titlebar');
     bar.addEventListener('pointerdown', (e) => {
-      if (!isDraggable()) return;
-      if (e.target.closest('.light')) return;   // lights handled separately
+      if (!isDesktopMode()) return;
+      if (e.target.closest('.light')) return;     // traffic lights handled separately
+      if (!win.classList.contains('free')) layoutDesktop();
       e.preventDefault();
-      focusWindow(win);
-      freeWindow(win);
       dragState = {
         win,
         startX: e.clientX, startY: e.clientY,
         originLeft: parseFloat(win.style.left) || 0,
         originTop: parseFloat(win.style.top) || 0,
-        maxLeft: desktop.clientWidth - win.offsetWidth,
-        maxTop: desktop.clientHeight - win.offsetHeight,
+        maxLeft: Math.max(0, desktop.clientWidth - win.offsetWidth),
+        maxTop: Math.max(0, desktop.clientHeight - win.offsetHeight),
       };
       win.classList.add('dragging');
       bar.setPointerCapture(e.pointerId);
@@ -86,8 +107,8 @@
       if (!dragState || dragState.win !== win) return;
       let nl = dragState.originLeft + (e.clientX - dragState.startX);
       let nt = dragState.originTop + (e.clientY - dragState.startY);
-      nl = Math.max(0, Math.min(nl, Math.max(0, dragState.maxLeft)));
-      nt = Math.max(0, Math.min(nt, Math.max(0, dragState.maxTop)));
+      nl = Math.max(0, Math.min(nl, dragState.maxLeft));
+      nt = Math.max(0, Math.min(nt, dragState.maxTop));
       win.style.left = nl + 'px';
       win.style.top = nt + 'px';
     });
@@ -101,37 +122,81 @@
     bar.addEventListener('pointercancel', endDrag);
   });
 
-  if (windows[0]) focusWindow(windows[0]);   // focus first window on load
+  /* ---- Dock: minimized-window tiles ---- */
+  function updateDockSep() {
+    if (dockSep && dockMin) dockSep.style.display = dockMin.children.length ? '' : 'none';
+  }
+  function addDockTile(win) {
+    if (!dockMin || dockMin.querySelector('[data-win="' + win.id + '"]')) return;
+    const title = win.querySelector('.title').textContent;
+    const btn = document.createElement('button');
+    btn.className = 'dock-min-item';
+    btn.setAttribute('data-win', win.id);
+    btn.setAttribute('data-label', title);
+    btn.setAttribute('aria-label', 'Restore ' + title);
+    const text = document.createElement('span');
+    text.className = 'dml-text';
+    text.textContent = title;
+    btn.appendChild(text);
+    btn.addEventListener('click', () => openWindow(win));
+    dockMin.appendChild(btn);
+    updateDockSep();
+  }
+  function removeDockTile(win) {
+    if (!dockMin) return;
+    const tile = dockMin.querySelector('[data-win="' + win.id + '"]');
+    if (tile) tile.remove();
+    updateDockSep();
+  }
 
   /* ---- Traffic-light actions ---- */
+  function clampIntoView(win) {
+    const maxLeft = Math.max(0, desktop.clientWidth - win.offsetWidth);
+    const maxTop = Math.max(0, desktop.clientHeight - win.offsetHeight);
+    win.style.left = Math.max(0, Math.min(parseFloat(win.style.left) || 0, maxLeft)) + 'px';
+    win.style.top = Math.max(0, Math.min(parseFloat(win.style.top) || 0, maxTop)) + 'px';
+  }
   function closeWindow(win) { win.classList.add('is-closed'); rebuildWindowMenu(); }
-  function openWindow(win) {
-    win.classList.remove('is-closed', 'is-min');
-    if (win.classList.contains('free')) {
-      const maxLeft = Math.max(0, desktop.clientWidth - win.offsetWidth);
-      const maxTop = Math.max(0, desktop.clientHeight - win.offsetHeight);
-      const curLeft = parseFloat(win.style.left) || 0;
-      const curTop = parseFloat(win.style.top) || 0;
-      win.style.left = Math.max(0, Math.min(curLeft, maxLeft)) + 'px';
-      win.style.top = Math.max(0, Math.min(curTop, maxTop)) + 'px';
-    }
-    focusWindow(win);
+  function minimizeWindow(win) {
+    if (win.classList.contains('is-min')) return;
+    win.classList.add('is-min');
+    addDockTile(win);
     rebuildWindowMenu();
   }
-  function minimizeWindow(win) { win.classList.add('is-min'); rebuildWindowMenu(); }
+  function openWindow(win) {
+    win.classList.remove('is-closed', 'is-min');
+    removeDockTile(win);
+    if (isDesktopMode()) {
+      if (win.classList.contains('free')) clampIntoView(win);
+      else layoutDesktop();
+    }
+    focusWindow(win);
+    win.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    rebuildWindowMenu();
+  }
   function zoomWindow(win) {
-    if (!win.classList.contains('free')) freeWindow(win);
-    win.classList.toggle('zoomed');
+    if (!isDesktopMode()) return;
+    if (!win.classList.contains('free')) layoutDesktop();
+    if (win.classList.contains('zoomed')) {
+      win.classList.remove('zoomed');
+      if (win.dataset.w0) { win.style.width = win.dataset.w0; delete win.dataset.w0; }
+    } else {
+      win.dataset.w0 = win.style.width;
+      const target = Math.min(680, window.innerWidth * 0.9);
+      win.style.width = target + 'px';
+      win.classList.add('zoomed');
+      clampIntoView(win);
+    }
     focusWindow(win);
   }
 
   windows.forEach(win => {
     win.querySelector('.light.close').addEventListener('click', (e) => { e.stopPropagation(); closeWindow(win); });
-    win.querySelector('.light.min').addEventListener('click',   (e) => { e.stopPropagation(); minimizeWindow(win); });
-    win.querySelector('.light.zoom').addEventListener('click',  (e) => { e.stopPropagation(); zoomWindow(win); });
+    win.querySelector('.light.min').addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(win); });
+    win.querySelector('.light.zoom').addEventListener('click', (e) => { e.stopPropagation(); zoomWindow(win); });
   });
 
-  /* ---- Menu bar: focus shortcuts + Window menu ---- */
+  /* ---- Menu bar: inline section shortcuts ---- */
   document.querySelectorAll('.mb-item[data-focus]').forEach(btn => {
     btn.addEventListener('click', () => {
       const win = document.getElementById(btn.dataset.focus);
@@ -139,6 +204,7 @@
     });
   });
 
+  /* ---- Window dropdown (shown only when the inline menu is collapsed) ---- */
   const winMenuBtn = document.querySelector('.mb-window-menu');
   let winMenuList = null;
   function rebuildWindowMenu() {
@@ -162,9 +228,10 @@
     });
   }
   function toggleWinMenu(force) {
+    if (!winMenuList) return;
     const open = force !== undefined ? force : !winMenuList.classList.contains('open');
     winMenuList.classList.toggle('open', open);
-    if (open) { winMenuList.style.left = winMenuBtn.getBoundingClientRect().left + 'px'; }
+    if (open && winMenuBtn) winMenuList.style.left = winMenuBtn.getBoundingClientRect().left + 'px';
   }
   if (winMenuBtn) {
     winMenuList = document.createElement('ul');
@@ -175,5 +242,25 @@
     document.addEventListener('click', () => toggleWinMenu(false));
   }
 
-  window.__aqua = { desktop, windows, focusWindow, freeWindow };
+  /* ---- Collapse the inline menu to a single "Window" dropdown when it
+         no longer fits the menu bar width ---- */
+  function syncMenu() {
+    if (!menubar) return;
+    menubar.classList.remove('collapsed');
+    if (menubar.scrollWidth > menubar.clientWidth + 1) {
+      menubar.classList.add('collapsed');
+    }
+  }
+
+  /* ---- Init + re-layout triggers ---- */
+  function refresh() { layoutDesktop(); syncMenu(); }
+  refresh();
+  if (windows[0]) focusWindow(windows[0]);
+
+  window.addEventListener('load', refresh);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh);
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(refresh, 120); });
+
+  window.__aqua = { desktop, windows, focusWindow, layoutDesktop, openWindow, minimizeWindow, closeWindow };
 })();
