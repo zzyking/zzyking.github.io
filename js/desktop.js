@@ -303,5 +303,29 @@
   let rt;
   window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(refresh, 120); });
 
+  /* ---- Self-heal: re-stack when a window's height changes after the freeze.
+         Frozen windows are pinned to absolute coords, so anything that grows a
+         window *after* layout — lazy content, or browser extensions injecting
+         badges (e.g. EasyScholar adding impact-factor tags to publications) —
+         would otherwise let a taller window crowd the one pinned below it.
+         A ResizeObserver re-runs the layout so the column re-stacks to a clean
+         gap. Re-stacking only moves windows (no size change), so it can't loop;
+         we debounce it and skip while a drag is in progress. ---- */
+  if (window.ResizeObserver) {
+    let ro_t;
+    const ro = new ResizeObserver((entries) => {
+      if (dragState) return;                 // don't fight an active drag
+      // Ignore the 0x0 collapse from close/minimize (display:none) — those must
+      // leave a hole, not repack. Only a window still on the canvas changing
+      // height should re-stack its column.
+      const live = entries.some(e =>
+        !e.target.classList.contains('is-closed') && !e.target.classList.contains('is-min'));
+      if (!live) return;
+      clearTimeout(ro_t);
+      ro_t = setTimeout(() => { if (!dragState) refresh(); }, 150);
+    });
+    windows.forEach(w => ro.observe(w));
+  }
+
   window.__aqua = { desktop, windows, focusWindow, layoutDesktop, openWindow, minimizeWindow, closeWindow };
 })();
