@@ -91,7 +91,7 @@ body::before {
   width: 12px; height: 12px; padding: 0; border-radius: 50%;
   border: 0.5px solid var(--rim);
   background:
-    radial-gradient(ellipse 82% 50% at 50% 98%, var(--reflect) 0%, rgba(255,255,255,0) 62%),
+    radial-gradient(ellipse 92% 62% at 50% 100%, var(--reflect) 0%, rgba(255,255,255,0) 72%),
     radial-gradient(circle at 50% 40%, var(--c-top) 0%, var(--c-mid) 50%, var(--c-bot) 100%);
   box-shadow:
     inset 0 0 2px 0.5px rgba(0,0,0,0.42),   /* dark water-drop edge */
@@ -106,9 +106,9 @@ body::before {
   background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.12) 78%);
   pointer-events: none;
 }
-.light.close { --c-top: #ff8d82; --c-mid: #ec4133; --c-bot: #c0301f; --reflect: rgba(255,162,150,0.88); --rim: rgba(108,20,13,0.6); }
-.light.min   { --c-top: #ffdd76; --c-mid: #f3ad1c; --c-bot: #c47f08; --reflect: rgba(255,216,112,0.88); --rim: rgba(114,74,6,0.55); }
-.light.zoom  { --c-top: #bced7a; --c-mid: #5cc233; --c-bot: #348d1e; --reflect: rgba(166,232,122,0.88); --rim: rgba(28,86,13,0.55); }
+.light.close { --c-top: #ff8d82; --c-mid: #ec4133; --c-bot: #c0301f; --reflect: rgba(255,176,166,0.97); --rim: rgba(108,20,13,0.6); }
+.light.min   { --c-top: #ffdd76; --c-mid: #f3ad1c; --c-bot: #c47f08; --reflect: rgba(255,224,134,0.97); --rim: rgba(114,74,6,0.55); }
+.light.zoom  { --c-top: #bced7a; --c-mid: #5cc233; --c-bot: #348d1e; --reflect: rgba(182,238,140,0.97); --rim: rgba(28,86,13,0.55); }
 .light:focus-visible { outline: 2px solid rgba(255,255,255,0.9); outline-offset: 1px; }
 
 /* Inactive window: desaturate title bar + dim lights */
