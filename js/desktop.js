@@ -48,6 +48,7 @@
     win.classList.remove('free', 'zoomed', 'dragging');
     win.style.left = win.style.top = win.style.width = win.style.zIndex = '';
     delete win.dataset.w0;
+    delete win.dataset.placed;
   }
 
   function layoutDesktop() {
@@ -56,15 +57,19 @@
       desktop.style.height = '';
       return;
     }
-    // Only (re)tile windows that are currently on the canvas.
+    // Windows on the canvas. Those the user has dragged or zoomed are "placed":
+    // they float at their own position and are never re-tiled — only the
+    // untouched ones auto-tile into columns. This keeps a manual position (and
+    // a hole) stable across any later re-layout (resize, content self-heal).
     const live = windows.filter(w =>
       !w.classList.contains('is-closed') && !w.classList.contains('is-min'));
-    live.forEach(unfreeze);
+    const auto = live.filter(w => !w.dataset.placed);
+    auto.forEach(unfreeze);
     desktop.style.height = '';
 
-    // Pass 1: measure every window's natural column-flow rect.
+    // Pass 1: measure every auto window's natural column-flow rect.
     const dRect = desktop.getBoundingClientRect();
-    const measures = live.map(w => {
+    const measures = auto.map(w => {
       const r = w.getBoundingClientRect();
       return { w, left: r.left - dRect.left, top: r.top - dRect.top, width: r.width, height: r.height };
     });
@@ -100,6 +105,10 @@
         maxBottom = Math.max(maxBottom, cursor);
       });
     });
+    // Placed (floating) windows still count toward the canvas height.
+    live.filter(w => w.dataset.placed).forEach(w => {
+      maxBottom = Math.max(maxBottom, (parseFloat(w.style.top) || 0) + w.offsetHeight);
+    });
     desktop.style.height = (maxBottom + 24) + 'px';
   }
 
@@ -133,6 +142,7 @@
       nt = Math.max(0, Math.min(nt, dragState.maxTop));
       win.style.left = nl + 'px';
       win.style.top = nt + 'px';
+      win.dataset.placed = '1';                 // user has moved it: float it free
     });
     function endDrag(e) {
       if (!dragState || dragState.win !== win) return;
@@ -199,6 +209,7 @@
   function zoomWindow(win) {
     if (!isDesktopMode()) return;
     if (!win.classList.contains('free')) layoutDesktop();
+    win.dataset.placed = '1';                   // zoom floats it free too
     if (win.classList.contains('zoomed')) {
       win.classList.remove('zoomed');
       if (win.dataset.w0) { win.style.width = win.dataset.w0; delete win.dataset.w0; }
