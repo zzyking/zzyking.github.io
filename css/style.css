@@ -154,11 +154,29 @@ sup {
 }
 
 /* AI 工具图标：多为单色品牌标，略减 sepia 让品牌色更真，与彩色 skillicons 协调 */
-.tech-badge.ai-tool img {
-    width: 30px;
-    height: 30px;
-    filter: sepia(0.15) contrast(0.9) saturate(0.95);
+/* AI-tool logos are single-colour SVGs on a transparent background, while the
+   skillicons bake in a coloured rounded tile (256-box, rx 60 ≈ 23%, e.g. dark
+   #242938, docker #2396ED). Recreate that tile with a ::before behind the logo
+   and recolour the logo white to sit on it — matching the skillicons' look. */
+.tech-badge.ai-tool::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 32px; height: 32px;
+    border-radius: 7.5px;
+    background: #242938;                  /* skillicons' default dark tile */
+    z-index: 0;
 }
+.tech-badge.ai-tool img {
+    width: 22px; height: 22px;
+    position: relative; z-index: 1;
+    filter: brightness(0) invert(1);      /* white logo on the coloured tile */
+}
+.tech-badge.ai-tool[title="vLLM"]::before        { background: #30A2FF; }
+.tech-badge.ai-tool[title="Claude Code"]::before { background: #D97757; }
+.tech-badge.ai-tool[title="OpenClaw"]::before    { background: #BE1931; }
+/* Hugging Face keeps its signature yellow logo on the dark tile */
+.tech-badge.ai-tool[title="Hugging Face"] img    { filter: none; }
 
 h2 {
     /* 1. 布局：利用 Flexbox 实现居中 + 两侧自适应横线 */
