@@ -63,6 +63,20 @@ body::before {
    first *visible* block so every window's titlebar-to-content gap is 16px
    (otherwise Tech's .skills-grid margin-top makes it 26px). */
 .window-body > .visually-hidden + * { margin-top: 0; }
+.window-body .about-name {
+  margin: 0 0 4px; text-align: center;
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.about-name-en {
+  font-size: 1.85em; font-weight: 700; font-variant: small-caps;
+  letter-spacing: 1px; color: #2b2b2b;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.85);
+}
+.about-name-zh {
+  font-size: 1.05em; color: var(--text-meta); letter-spacing: 3px;
+  font-family: "Noto Serif CJK SC", "Songti SC", serif;
+}
 .window-body .about-subtitle {
   margin: 0 0 12px; text-align: center; font-style: italic;
   color: var(--text-meta); font-family: "Georgia", serif;
@@ -169,6 +183,10 @@ body::before {
   list-style: none; margin: 0; display: none;
 }
 #window-menu-list.open { display: block; }
+/* Reset the global list-item margins (style.css sets li:last-child to -15px for
+   window-body lists) so menu rows sit flush and the last one doesn't poke out
+   past the dropdown's rounded bottom edge. */
+#window-menu-list li { margin: 0; }
 #window-menu-list button {
   display: flex; justify-content: space-between; gap: 12px; width: 100%;
   font: inherit; text-align: left; background: none; border: 0;
@@ -179,9 +197,10 @@ body::before {
 
 /* Dock — translucent Aqua tray; icons sit directly on it (no per-icon tile) */
 #dock {
+  --dock-icon: 48px;   /* one knob: icon tile size; glyphs derive from it */
   position: fixed; left: 50%; bottom: 10px; transform: translateX(-50%);
-  z-index: 1000;
-  display: flex; align-items: flex-end; gap: 8px; padding: 6px 10px;
+  z-index: 1000; max-width: calc(100vw - 16px);
+  display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 8px; padding: 6px 10px;
   background:
     repeating-linear-gradient(180deg, rgba(255,255,255,0.5) 0 1px, rgba(255,255,255,0) 1px 3px),
     linear-gradient(to bottom, rgba(246,249,253,0.72), rgba(206,221,242,0.6));
@@ -194,7 +213,8 @@ body::before {
     inset 0 0 0 1px rgba(120,150,190,0.22);
 }
 .dock-item {
-  position: relative; width: 48px; height: 48px;
+  position: relative; width: var(--dock-icon); height: var(--dock-icon);
+  flex: 0 0 auto;
   display: flex; align-items: center; justify-content: center;
   color: #21436e; text-decoration: none;
   border: 0; background: none; border-radius: 0;
@@ -202,8 +222,8 @@ body::before {
   transform-origin: bottom center;
   transition: transform 0.14s ease;
 }
-.dock-item i { font-size: 31px; }
-.dock-item .kz-icon { width: 31px; height: 31px; }
+.dock-item i { font-size: calc(var(--dock-icon) * 0.645); }
+.dock-item .kz-icon { width: calc(var(--dock-icon) * 0.645); height: calc(var(--dock-icon) * 0.645); }
 .dock-item:hover { transform: translateY(-12px) scale(1.22); }
 .dock-item::after {
   content: attr(data-label);
@@ -224,10 +244,11 @@ body::before {
 /* Minimized windows are square thumbnails (a window, not an app icon), so they
    keep a thin paper frame and show the window's initial. */
 .dock-min-item {
-  position: relative; width: 48px; height: 48px;
+  position: relative; width: var(--dock-icon); height: var(--dock-icon);
+  flex: 0 0 auto;
   display: flex; align-items: center; justify-content: center;
   font-family: "Lucida Grande", -apple-system, "Helvetica Neue", sans-serif;
-  font-size: 21px; font-weight: 600; color: #4a463f; text-decoration: none;
+  font-size: calc(var(--dock-icon) * 0.44); font-weight: 600; color: #4a463f; text-decoration: none;
   text-shadow: 0 1px 0 rgba(255,255,255,0.8);
   border: 1px solid rgba(0,0,0,0.3); border-radius: 6px;
   background-image: var(--paper-texture-img);
@@ -268,11 +289,17 @@ body::before {
   }
   .window.zoomed.free { width: auto !important; }
   .titlebar { cursor: default; }
-  #dock { gap: 6px; padding: 6px 8px; bottom: 8px; flex-wrap: wrap; justify-content: center; }
-  .dock-item { width: 42px; height: 42px; }
-  .dock-item i { font-size: 26px; }
-  .dock-item .kz-icon { width: 26px; height: 26px; }
-  .dock-item:hover { transform: none; }     /* no magnify on touch */
-  .dock-min-item { width: 42px; height: 42px; font-size: 19px; }
+  /* macOS-style: keep one row, shrink the whole dock to fit the viewport.
+     Icon size = min(42px, available width / slot budget) so it never wraps. */
+  #dock {
+    --dock-icon: min(42px, calc((100vw - 56px) / 8));
+    gap: 6px; padding: 6px 8px; bottom: 8px;
+  }
+}
+
+/* Disable the magnify on touch devices only — gate on actual pointer capability,
+   not viewport width, so a narrow *desktop* window (mouse) keeps the hover lift. */
+@media (hover: none), (pointer: coarse) {
+  .dock-item:hover { transform: none; }
   .dock-min-item:hover { transform: none; }
 }

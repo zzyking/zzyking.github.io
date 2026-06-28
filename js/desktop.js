@@ -5,8 +5,13 @@
 
   const windows = Array.from(desktop.querySelectorAll('.window'));
   const menubar = document.getElementById('menubar');
+  const dock = document.getElementById('dock');
   const dockMin = document.getElementById('dock-min');
   const dockSep = document.getElementById('dock-sep');
+  // Bottom clearance below the lowest window so the fixed dock never covers it.
+  // Mirrors the CSS bottom padding: --dock-h reserve + the 22px design gap.
+  const dockReserve =
+    (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dock-h')) || 78) + 22;
 
   /* ---- Clock (minute-aligned) ---- */
   const clockEl = document.getElementById('clock');
@@ -120,7 +125,7 @@
     live.filter(w => w.dataset.placed).forEach(w => {
       maxBottom = Math.max(maxBottom, (parseFloat(w.style.top) || 0) + w.offsetHeight);
     });
-    desktop.style.height = (maxBottom + 24) + 'px';
+    desktop.style.height = (maxBottom + dockReserve) + 'px';
     snapshotHeights();
   }
 
@@ -159,7 +164,7 @@
       if (w.classList.contains('is-closed') || w.classList.contains('is-min')) return;
       maxBottom = Math.max(maxBottom, (parseFloat(w.style.top) || 0) + w.offsetHeight);
     });
-    desktop.style.height = (maxBottom + 24) + 'px';
+    desktop.style.height = (maxBottom + dockReserve) + 'px';
   }
 
   /* ---- Drag (Pointer Events) ---- */
@@ -212,7 +217,50 @@
     const has = dockMin && dockMin.children.length > 0;
     if (dockSep) dockSep.style.display = has ? '' : 'none';
     if (dockMin) dockMin.style.display = has ? '' : 'none';
+    fitDock();
   }
+  // Real content width = sum of visible children's offsetWidth + flex gaps +
+  // padding. Using offsetWidth (not scrollWidth) ignores the hover tooltip's
+  // ::after, which can overflow the dock edge and pollute the measurement.
+  function dockContentWidth() {
+    const cs = getComputedStyle(dock);
+    const gap = parseFloat(cs.columnGap) || parseFloat(cs.gap) || 0;
+    let w = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    let n = 0;
+    Array.from(dock.children).forEach((c) => {
+      if (getComputedStyle(c).display === 'none') return;
+      w += c.offsetWidth; n++;
+    });
+    return w + gap * Math.max(0, n - 1);
+  }
+  // macOS logic: the dock stays a single row and shrinks every icon to fit when
+  // it would otherwise overflow. CSS can't count tiles, so size the shared
+  // --dock-icon knob here from the real content width. Width is affine in the
+  // icon size, so sample both ends and interpolate, then nudge for rounding.
+  function fitDock() {
+    if (!dock) return;
+    const maxIcon = window.matchMedia('(max-width: 820px)').matches ? 42 : 48;
+    const minIcon = 22;
+    const avail = document.documentElement.clientWidth - 16;  // mirrors max-width
+    dock.style.setProperty('--dock-icon', maxIcon + 'px');
+    if (dockContentWidth() <= avail) return;                  // fits at full size
+    dock.style.setProperty('--dock-icon', minIcon + 'px');
+    const lowW = dockContentWidth();
+    dock.style.setProperty('--dock-icon', maxIcon + 'px');
+    const fullW = dockContentWidth();
+    let icon = maxIcon;
+    if (fullW > lowW) {
+      icon = minIcon + (maxIcon - minIcon) * (avail - lowW) / (fullW - lowW);
+      icon = Math.max(minIcon, Math.min(maxIcon, Math.floor(icon)));
+    }
+    dock.style.setProperty('--dock-icon', icon + 'px');
+    let guard = 48;
+    while (icon > minIcon && dockContentWidth() > avail && guard-- > 0) {
+      icon -= 1;
+      dock.style.setProperty('--dock-icon', icon + 'px');
+    }
+  }
+  window.addEventListener('resize', fitDock);
   function addDockTile(win) {
     if (!dockMin || dockMin.querySelector('[data-win="' + win.id + '"]')) return;
     const title = win.querySelector('.title').textContent;
